@@ -46,6 +46,36 @@ console.log(`=============== Task 1 ==========================`);
 
 }
 
+console.log(`=============== Task 2 ==========================`);
+
+{
+    {
+        let smile = '^)';
+        let str = '';
+        for (let i = 0; i < 5; i++) {
+            for (let j = 0; j <= i; j++) {
+                str += smile;
+            }
+            str += '\n';
+        }
+        console.log(str);
+    }
+
+    {
+        let asterix_1 = '*';
+        let asterix_2 = '*';
+        let space = '          ';
+        for (let i = 1; i < 6; i++) {
+            console.log(`${space}${asterix_1}`);
+            space = space.replace('  ', ' ');
+            asterix_1 = `${asterix_1} ${asterix_2}`;
+        }
+    }
+    console.log(``)
+    {
+
+    }
+}
 
 
 console.log(`=============== Task 5 ==========================`);
@@ -57,12 +87,13 @@ console.log(`=============== Task 5 ==========================`);
 
         let counterVowels = 0;
         let counterConsonants = 0;
-        for(const char of word.toLowerCase()){
-            if(vowels.includes(char)) counterVowels++;
+        for (const char of word.toLowerCase()) {
+            if (vowels.includes(char)) counterVowels++;
             else if (consonants.includes(char)) counterConsonants++;
         }
         console.log(`Word '${word}' consist of ${counterVowels} vowels and ${counterConsonants} consonants`)
     }
+
     countVowelConsonant('case');
     countVowelConsonant('Case');
     countVowelConsonant('Check-list');
