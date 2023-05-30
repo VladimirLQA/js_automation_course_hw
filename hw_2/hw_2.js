@@ -54,7 +54,7 @@ console.log(`======================= Task 2 =====================`);
     let age_3 = 60;
 
     function checkAge(number) {
-        if (number && !isNaN(number)) {  // Number.isInteger(number) // Number.isNaN(number)
+        if (number && !isNaN(number)) {  // Number.isInteger(number)
             if (number < age_2) {
                 console.log(`You don’t have access cause your age is ${number}. It’s less then ${age_2}`);
             } else if (number >= age_2 && number < age_3) {
