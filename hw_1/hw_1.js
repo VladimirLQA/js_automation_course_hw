@@ -85,7 +85,27 @@ console.log(`==================== Task 1 ===========================`);
 console.log(`==================== Task 2 ===========================`);
 
 {
+    console.log(`================== Task 2.1 > x2 - 6x + 9 = 0. - один корень < ===========================`);
+    {
+        // D = b^2 - 4*a*c
+        let a = 1;
+        let b = -6;
+        let c = 9;
+        let discriminant = b ** 2 - 4 * a * c; // 0
+        let result = (-b + Math.sqrt(discriminant)) / 2 * a;
+        console.log(`Solution to the first equation: "${result}"`);
+    }
 
+    console.log(`================== Task 2.2 > x2 - 4x - 5 = 0. - два корня < ===========================`);
+    {
+        let a = 1;
+        let b = -4;
+        let c = -5;
+        let discriminant = b ** 2 - 4 * a * c; // 0
+        let result_1 = (-b + Math.sqrt(discriminant)) / 2 * a;
+        let result_2 = (-b - Math.sqrt(discriminant)) / 2 * a;
+        console.log(`Solution to the second equation: "${result_1}", "${result_2}"`);
+    }
 }
 
 console.log(`==================== Task 3 ===========================`);
