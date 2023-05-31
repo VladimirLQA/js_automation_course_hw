@@ -77,6 +77,59 @@ console.log(`=============== Task 2 ==========================`);
     }
 }
 
+console.log(`=============== Task 4 ==========================`);
+
+{
+
+    {
+        function toCamelCase(sentence) {
+            let words = sentence.toLowerCase().split(' ');
+            return words.map(function(word, index) {
+                if (index === 0) {
+                    return word;
+                } else {
+                    return word.charAt(0).toUpperCase() + word.slice(1);
+                }
+            }).join('');
+        }
+        console.log(toCamelCase("I am super engineer"));
+    }
+
+    {
+        function toCamelCase(sentence) {
+            let words = sentence.toLowerCase().split(' ');
+            for (let i = 1; i < words.length; i++) {
+                words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+            }
+            return words.join('');
+        }
+        console.log(toCamelCase("I am super engineer"));
+    }
+
+    {
+        function toCamelCase(sentence) {
+            let resultSentence = '';
+            let nextChar = false;
+
+            for (let i = 0; i < sentence.length; i++) {
+                let currentChar = sentence[i];
+
+                if (currentChar === ' ') {
+                    nextChar = true;
+                } else {
+                    if (nextChar) {
+                        resultSentence += currentChar.toUpperCase();
+                        nextChar = false;
+                    } else {
+                        resultSentence += currentChar.toLowerCase();
+                    }
+                }
+            }
+            return resultSentence;
+        }
+        console.log(toCamelCase("I am super engineer"));
+    }
+}
 
 console.log(`=============== Task 5 ==========================`);
 
