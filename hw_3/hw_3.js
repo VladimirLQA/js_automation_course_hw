@@ -40,13 +40,39 @@
 6**. Написать программу, которая видоизменяет принимаемое слово шифром ЦЕЗАРЯ (Шифр Цезаря ) со сдвигом на 1 в любую из сторон
 (в фунцию кроме слова передает 1 или -1). Пример: caesar('AbC, -1) => ‘ZaB’*/
 
-console.log(`=============== Task 1 ==========================`);
+const log = console.log;
+log(`=============== Task 1 ==========================`);
 
 {
+    function convertFromBytes(bytes) {
+        let kilobyte = 1024;
+        let megabyte = kilobyte * 1024;
+        let gigabyte = megabyte * 1024;
+        let terabyte = gigabyte * 1024;
 
+        switch (true) {
+            case(bytes >= terabyte):
+                log(`${(bytes / terabyte).toFixed(1)} Tb`);
+                break;
+            case(bytes >= gigabyte):
+                log(`${(bytes / gigabyte).toFixed(1)} Gb`);
+                break;
+            case(bytes >= megabyte):
+                log(`${(bytes / megabyte).toFixed(1)} Mb`);
+                break;
+            case(bytes >= kilobyte):
+                log(`${(bytes / kilobyte).toFixed(1)} Kb`);
+                break;
+            default: log(`${bytes} bytes`)
+                break;
+        }
+    }
+    convertFromBytes(4548);
+    convertFromBytes(454548);
+    convertFromBytes(1454548);
 }
 
-console.log(`=============== Task 2 ==========================`);
+log(`=============== Task 2 ==========================`);
 
 {
     {
@@ -58,7 +84,7 @@ console.log(`=============== Task 2 ==========================`);
             }
             str += '\n';
         }
-        console.log(str);
+        log(str);
     }
 
     {
@@ -66,25 +92,54 @@ console.log(`=============== Task 2 ==========================`);
         let asterix_2 = '*';
         let space = '          ';
         for (let i = 1; i < 6; i++) {
-            console.log(`${space}${asterix_1}`);
+            log(`${space}${asterix_1}`);
             space = space.replace('  ', ' ');
             asterix_1 = `${asterix_1} ${asterix_2}`;
         }
     }
-    console.log(``)
+    log(``)
     {
 
     }
 }
 
-console.log(`=============== Task 4 ==========================`);
+log(`=============== Task 3 ==========================`);
 
 {
+    function divisible() {
 
+        for ( let i = 1; i < 100; i++) {
+            if (i % 3 === 0 && i % 5 === 0) log(`${i} - divisible by 3 and 5`)
+            else if (i % 5 === 0) log(`${i} - divisible by 5`)
+            else if (i % 3 === 0) log(`${i} - divisible by 3`)
+        }
+
+        // for ( let i = 1; i <= 100; i++) {
+        //     switch (i) {
+        //         case (i % 3 === 0 && i % 5 === 0):
+        //             log(`${i} - divisible by 3 and 5`);
+        //             break;
+        //         case (i % 3 === 0):
+        //             log(`${i} - divisible by 3`);
+        //             break;
+        //         case (i % 5 === 0):
+        //             log(`${i} - divisible by 5`);
+        //             break;
+        //         default: break;
+        //     }
+        // }
+    }
+
+    divisible();
+}
+
+log(`=============== Task 4 ==========================`);
+
+{
     {
         function toCamelCase(sentence) {
             let words = sentence.toLowerCase().split(' ');
-            return words.map(function(word, index) {
+            return words.map(function (word, index) {
                 if (index === 0) {
                     return word;
                 } else {
@@ -92,7 +147,8 @@ console.log(`=============== Task 4 ==========================`);
                 }
             }).join('');
         }
-        console.log(toCamelCase("I am super engineer"));
+
+        log(toCamelCase("I am super engineer"));
     }
 
     {
@@ -103,7 +159,8 @@ console.log(`=============== Task 4 ==========================`);
             }
             return words.join('');
         }
-        console.log(toCamelCase("I am super engineer"));
+
+        log(toCamelCase("I am super engineer"));
     }
 
     {
@@ -127,11 +184,12 @@ console.log(`=============== Task 4 ==========================`);
             }
             return resultSentence;
         }
-        console.log(toCamelCase("I am super engineer"));
+
+        log(toCamelCase("I am super engineer"));
     }
 }
 
-console.log(`=============== Task 5 ==========================`);
+log(`=============== Task 5 ==========================`);
 
 {
     function countVowelConsonant(word) {
@@ -144,7 +202,7 @@ console.log(`=============== Task 5 ==========================`);
             if (vowels.includes(char)) counterVowels++;
             else if (consonants.includes(char)) counterConsonants++;
         }
-        console.log(`Word '${word}' consist of ${counterVowels} vowels and ${counterConsonants} consonants`)
+        log(`Word '${word}' consist of ${counterVowels} vowels and ${counterConsonants} consonants`)
     }
 
     countVowelConsonant('case');
