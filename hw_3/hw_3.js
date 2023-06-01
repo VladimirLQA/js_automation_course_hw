@@ -115,7 +115,7 @@ log(`=============== Task 3 ==========================`);
         }
 
         // for ( let i = 1; i <= 100; i++) {
-        //     switch (i) {
+        //     switch (true) {
         //         case (i % 3 === 0 && i % 5 === 0):
         //             log(`${i} - divisible by 3 and 5`);
         //             break;
