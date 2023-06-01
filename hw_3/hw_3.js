@@ -63,10 +63,12 @@ log(`=============== Task 1 ==========================`);
             case(bytes >= kilobyte):
                 log(`${(bytes / kilobyte).toFixed(1)} Kb`);
                 break;
-            default: log(`${bytes} bytes`)
+            default:
+                log(`${bytes} bytes`)
                 break;
         }
     }
+
     convertFromBytes(4548);
     convertFromBytes(454548);
     convertFromBytes(1454548);
@@ -108,7 +110,7 @@ log(`=============== Task 3 ==========================`);
 {
     function divisible() {
 
-        for ( let i = 1; i < 100; i++) {
+        for (let i = 1; i < 100; i++) {
             if (i % 3 === 0 && i % 5 === 0) log(`${i} - divisible by 3 and 5`)
             else if (i % 5 === 0) log(`${i} - divisible by 5`)
             else if (i % 3 === 0) log(`${i} - divisible by 3`)
@@ -186,6 +188,24 @@ log(`=============== Task 4 ==========================`);
         }
 
         log(toCamelCase("I am super engineer"));
+    }
+
+    {
+        function toCamelCase(sentence) {
+            let word = '';
+            let resultSentence = '';
+            for (let i = 0; i < sentence.length + 1; i++) {
+                if (sentence[i] && sentence[i] !== ' ') {
+                    word += word ? sentence[i].toLowerCase() : i ? sentence[i].toUpperCase() : sentence[i].toLowerCase();
+                } else {
+                    resultSentence += word;
+                    word = '';
+                }
+            }
+            return resultSentence;
+        }
+
+        console.log(toCamelCase("I am super engineer"));
     }
 }
 
