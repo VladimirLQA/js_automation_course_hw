@@ -89,6 +89,8 @@ log(`=============== Task 2 ==========================`);
         log(str);
     }
 
+    log(`================== Pyramid ===========================`);
+
     {
         let asterix_1 = '*';
         let asterix_2 = '*';
@@ -99,9 +101,48 @@ log(`=============== Task 2 ==========================`);
             asterix_1 = `${asterix_1} ${asterix_2}`;
         }
     }
-    log(``)
-    {
 
+    {
+        function pyramid_pattern(star, times) {
+            let str = '';
+            for (let i = 1; i <= times; i++) {
+                for (let j = 1; j <= times - i; j++) {
+                    str += ' ';
+                }
+                for (let k = 0; k < 2 * i - 1; k++) {
+                    str += star;
+                }
+                str += '\n';
+            }
+            return console.log(str);
+        }
+
+        pyramid_pattern('*', 5);
+    }
+
+    log(`============================= Diamond ==============================`);
+
+    {
+        {
+            let asterix_1 = '*';
+            let asterix_2 = '*';
+            let space = '          ';
+            for (let i = 1; i < 6; i++) {
+                log(`${space}${asterix_1}`);
+                space = space.replace('  ', ' ');
+                asterix_1 = `${asterix_1} ${asterix_2}`;
+            }
+        }
+
+        {
+            let asterix_1 = '* * * *';
+            let space = '       ';
+            for (let i = 1; i < 5; i++) {
+                log(`${space}${asterix_1}`);
+                space = space.replace('', ' ');
+                asterix_1 = asterix_1.replace('* ', '');
+            }
+        }
     }
 }
 
@@ -228,4 +269,12 @@ log(`=============== Task 5 ==========================`);
     countVowelConsonant('case');
     countVowelConsonant('Case');
     countVowelConsonant('Check-list');
+}
+
+log(`=============== Task 6 ==========================`);
+
+{
+    {
+
+    }
 }
