@@ -42,8 +42,9 @@ const log = console.log;
 
         log(checkCompetitorPizza(myPizzas1));  // [ 'Hello', 'new', 'Farma' ]
         log(checkCompetitorPizza(myPizzas2)); // []
-        log(checkCompetitorPizza()); //
-        log(checkCompetitorPizza(2)); // not an array
+        log(checkCompetitorPizza()); // Check value not passed
+        log(checkCompetitorPizza(2)); // Check value must be an array
+
     }
 }
 
