@@ -70,6 +70,29 @@ const log = console.log;
 {
     log(`================================== Task 2 ==============================`);
 
+    {
+        // sentence -> Hello my dear son hello => hello hello
+        // sentence -> abb bbsc an hhherop => hhherop
+
+        function longestWord(string) {
+            if (!string || typeof string === 'number') return `Check string not passed or passed value not valid`;
+            let checkLength = 0;
+            return string.split(' ').reduce((result, word) => {
+                if(checkLength < word.length) {
+                    checkLength = word.length;
+                    result = [word];
+                } else if (checkLength === word.length) {
+                    result.push(word);
+                }
+                return result
+            }, []).join(' ');
+        }
+
+        log(longestWord('Hello my dear son hello')); // hello hello
+        log(longestWord('abb bbsc an hhherop')); // hhherop
+        log(longestWord(''));
+        log(longestWord(123123));
+    }
 }
 
 {
