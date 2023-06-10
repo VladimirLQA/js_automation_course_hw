@@ -98,6 +98,17 @@ const log = console.log;
 {
     log(`================================== Task 3 ==============================`);
 
+    {
+        function uniqueArray(arr) {
+            let resultArray = [];
+            return arr.filter(el => {
+                if (!resultArray.includes(el) && typeof el === 'number') return resultArray.push(el)
+            });
+        }
+
+        log(uniqueArray([1, 2, 3, 4, 4, 4, 5, 11])); //  [ 1, 2, 3, 4, 5, 11 ]
+        log(uniqueArray([1, 2, 3, 4, 4, 4, 5, {}, '123'])); //  [ 1, 2, 3, 4, 5 ]
+    }
 }
 
 {
