@@ -46,6 +46,25 @@ const log = console.log;
         log(checkCompetitorPizza(2)); // Check value must be an array
 
     }
+        log(`====================================================`);
+    {
+        const competitorPizzas = ['Peperoni', 'Caprichosa', 'Diablo', '4 cheeses', 'hawai'];
+        const myPizzas1 = ['Hello', 'Peperoni', 'new', 'Farma', 'hawai'];
+        const myPizzas2 = ['Peperoni', 'Caprichosa', 'Diablo'];
+
+        function checkCompetitorPizza(arr) {
+            if(!arr) return `Check value not passed`;
+            if (!Array.isArray(arr)) return `Check value must be an array`;
+            if (!competitorPizzas.every(v => arr.includes(v))) {
+                return arr.filter( el => !competitorPizzas.includes(el));
+            } else return null;
+        }
+
+        log(checkCompetitorPizza(myPizzas1));  // [ 'Hello', 'new', 'Farma' ]
+        log(checkCompetitorPizza(myPizzas2)); // []
+        log(checkCompetitorPizza()); // Check value not passed
+        log(checkCompetitorPizza(2)); // Check value must be an array
+    }
 }
 
 {

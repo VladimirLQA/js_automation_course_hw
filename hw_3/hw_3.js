@@ -275,6 +275,29 @@ log(`=============== Task 6 ==========================`);
 
 {
     {
+        function caesar(word, shift) {
+            shift = ((shift % 26) + 26) % 26;
+
+            let letters = word.split('');
+            let encrypted = letters.map((letter) => {
+                let code = letter.charCodeAt();
+                if (code >= 65 && code <= 90) {
+                    code = ((code - 65 + shift) % 26) + 65;
+                } else if (code >= 97 && code <= 122) {
+                    code = ((code - 97 + shift) % 26) + 97;
+                }
+
+                return String.fromCharCode(code);
+            });
+
+            return encrypted.join('');
+        }
+
+        log(caesar('AbC', 1));
+        log(caesar('AbC', -1));
+    }
+
+    {
 
     }
 }
