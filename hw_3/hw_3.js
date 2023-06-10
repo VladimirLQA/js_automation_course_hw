@@ -274,6 +274,7 @@ log(`=============== Task 5 ==========================`);
 log(`=============== Task 6 ==========================`);
 
 {
+    // TODO -> redo the code !!!!
     {
         function caesar(word, shift) {
             shift = ((shift % 26) + 26) % 26;
