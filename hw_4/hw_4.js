@@ -159,6 +159,37 @@ const log = console.log;
 {
     log(`================================== Task 5 ==============================`);
 
+    {
+        function summ(number) {
+            if (!number) return `Check number not passed`;
+            if (typeof number !== 'number') return `Passed value not valid`;
+            let sum = number;
+            while (sum > 9) {
+                sum = sum.toString().split('').reduce((prev, current) => +prev + +current)
+            }
+            return sum;
+        }
+
+        log(summ(19)); // 1
+        log(summ(3)); // 3
+        log(summ(327)); // 3
+        log(summ(98993)); // 2
+        log(summ());
+        log(summ('sdfd'));
+    }
+
+    log(`=============================================`);
+
+    {
+        // a eto ochen' krutoe reshenie, no ne moe :)
+        function digitalRoot(n) {
+            return --n % 9 + 1;
+        }
+        log(digitalRoot(19)); // 1
+        log(digitalRoot(3)); // 3
+        log(digitalRoot(327)); // 3
+        log(digitalRoot(98993)); // 2
+    }
 }
 
 {
