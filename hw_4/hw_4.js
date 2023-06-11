@@ -30,12 +30,12 @@ const log = console.log;
         const myPizzas2 = ['Peperoni', 'Caprichosa', 'Diablo'];
 
         function checkCompetitorPizza(arr) {
-            if(!arr) return `Check value not passed`;
+            if (!arr) return `Check value not passed`;
             if (!Array.isArray(arr)) return `Check value must be an array`;
             let resultArr = [];
             if (competitorPizzas.every(v => arr.includes(v))) return null;
-            for ( let i = 0; i < arr.length; i++) {
-                if(!competitorPizzas.includes(arr[i])) resultArr.push(arr[i])
+            for (let i = 0; i < arr.length; i++) {
+                if (!competitorPizzas.includes(arr[i])) resultArr.push(arr[i])
             }
             return resultArr;
         }
@@ -46,17 +46,17 @@ const log = console.log;
         log(checkCompetitorPizza(2)); // Check value must be an array
 
     }
-        log(`====================================================`);
+    log(`====================================================`);
     {
         const competitorPizzas = ['Peperoni', 'Caprichosa', 'Diablo', '4 cheeses', 'hawai'];
         const myPizzas1 = ['Hello', 'Peperoni', 'new', 'Farma', 'hawai'];
         const myPizzas2 = ['Peperoni', 'Caprichosa', 'Diablo'];
 
         function checkCompetitorPizza(arr) {
-            if(!arr) return `Check value not passed`;
+            if (!arr) return `Check value not passed`;
             if (!Array.isArray(arr)) return `Check value must be an array`;
             if (!competitorPizzas.every(v => arr.includes(v))) {
-                return arr.filter( el => !competitorPizzas.includes(el));
+                return arr.filter(el => !competitorPizzas.includes(el));
             } else return null;
         }
 
@@ -75,10 +75,10 @@ const log = console.log;
         // sentence -> abb bbsc an hhherop => hhherop
 
         function longestWord(string) {
-            if (!string || typeof string === 'number') return `Check string not passed or passed value not valid`;
+            if (!string || typeof string !== 'string') return `Check string not passed or passed value not valid`;
             let checkLength = 0;
             return string.split(' ').reduce((result, word) => {
-                if(checkLength < word.length) {
+                if (checkLength < word.length) {
                     checkLength = word.length;
                     result = [word];
                 } else if (checkLength === word.length) {
@@ -114,6 +114,46 @@ const log = console.log;
 {
     log(`================================== Task 4 ==============================`);
 
+    {
+        function isPalindrom(word) {
+            if (!word) return `Check string not passed`;
+            if (typeof word !== 'string') return `Passed value not valid`;
+
+            word = word.toLowerCase();
+            return word === word.toLowerCase().split('').reduceRight((resultString, item) => {
+                resultString = resultString + item;
+                return resultString;
+            }, '');
+        }
+
+        log(isPalindrom('Radar')); // true
+        log(isPalindrom('HElLo')); // false
+        log(isPalindrom()); // error
+        log(isPalindrom(121312)); // error
+    }
+
+
+    log(`==========================================================`);
+
+    {
+        function isPalindrom(word) {
+            if (!word) return `Check string not passed`;
+            if (typeof word !== 'string') return `Passed value not valid`;
+            word = word.toLowerCase();
+            for (let i = 0, j = word.length - 1; i < word.length, j >= 0; i++, j--) {
+                if (word[i] !== word[j]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        log(isPalindrom('Radar')); // true
+        log(isPalindrom('HElLo')); // false
+        log(isPalindrom()); // error
+        log(isPalindrom(121312)); // error
+
+    }
 }
 
 {
