@@ -17,7 +17,7 @@
 
 6**. Написать функцию, принимающую на вход неограниченное количество аргументов. Вернуть сумму всех цифр, попавших на вход функции.
   Например:
-  function getSumm(1,2,'as', 'aaa4', 0.1, -5) => 2.1*/
+  function getSumm(1, 2, 'as', 'aaa4', 0.1, -5) => 2.1*/
 
 const log = console.log;
 
@@ -140,7 +140,7 @@ const log = console.log;
             if (!word) return `Check string not passed`;
             if (typeof word !== 'string') return `Passed value not valid`;
             word = word.toLowerCase();
-            for (let i = 0, j = word.length - 1; i < word.length, j >= 0; i++, j--) {
+            for (let i = 0, j = word.length - 1; i < word.length / 2, j >= 0; i++, j--) {
                 if (word[i] !== word[j]) {
                     return false;
                 }
@@ -195,4 +195,20 @@ const log = console.log;
 {
     log(`================================== Task 6 ==============================`);
 
+    function sumOfArguments(...args) {
+        let result = 0;
+        for ( let i = 0; i < args.length; i++) {
+            let arg = args[i];
+            if (typeof arg !== 'number') {
+                for ( let j = 0; j < arg.length; j++) {
+                    if (!isNaN(arg[j])) result += +arg[j];
+                }
+            } else {
+                result += arg;
+            }
+        }
+        return +result.toFixed(1);
+    }
+
+    log(sumOfArguments(1, 2, 'as', 'aaa4', 0.1, -5)); // 2.1
 }
