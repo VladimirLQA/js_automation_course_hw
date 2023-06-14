@@ -59,12 +59,51 @@ const log = console.log;
 {
     log(`================================== Task 1 =========================================`);
     {
-        function countChar(sentence) {
-            let lowerCase = sentence.toLowerCase();
-            lowerCase.split(' ')
-
+        function numberOfOccurrencesLettersInSentence(sentence) {
+            let result = [];
+            let lowerCase = sentence.toLowerCase().split('');
+            for (let i = 0; i < lowerCase.length; i++) {
+                let char = lowerCase[i];
+                if (char >= 'a' && char <= 'z') {
+                    result.push(lowerCase.filter(el => el === char).length)
+                } else {
+                    result.push(char);
+                }
+            }
+            return result.join('')
         }
+        log(numberOfOccurrencesLettersInSentence('I am the best AQA ever!'));
     }
+        log(`=====================================`);
+    {
+        function numberOfOccurrencesLettersInSentence(sentence) {
+            const charCount = {};
+            const transformed = [];
+
+            for (let i = 0; i < sentence.length; i++) {
+                const char = sentence[i].toLowerCase();
+                if (char >= 'a' && char <= 'z') {
+                    charCount[char] = (charCount[char] || 0) + 1;
+                }
+            }
+
+            for (let i = 0; i < sentence.length; i++) {
+                const char = sentence[i].toLowerCase();
+                if (char >= 'a' && char <= 'z') {
+                    const count = charCount[char];
+                    transformed.push(count);
+                } else {
+                    transformed.push(sentence[i]);
+                }
+            }
+
+            return transformed.join('');
+        }
+
+        log(numberOfOccurrencesLettersInSentence('I am the best AQA ever!'));
+    }
+
+
 }
 
 {
