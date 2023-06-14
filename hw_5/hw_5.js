@@ -139,7 +139,7 @@ const log = console.log;
 
         function sumAvg(arr) {
             if (!arr || !Array.isArray(arr)) return `Value not passed or not valid`;
-            let sum = arr.slice().reduce((sum, price) => sum + price, 0);
+            let sum = [...arr].reduce((sum, price) => sum + price, 0);
             let avg = sum / arr.length;
             return `Итого: ${sum}$, средняя цена товара ${Math.trunc(avg)}$`;
         }
@@ -165,8 +165,8 @@ const log = console.log;
     }
 
     function sortArrWordsASCbyCountVowels(arr) {
-        if(!arr || !Array.isArray(arr)) return `Check value not passed or not valid`
-        return arr.splice('').sort((a, b) => countVowels(a) - countVowels(b));
+        if(!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
+        return arr.slice(0).sort((a, b) => countVowels(a) - countVowels(b));
     }
 
     log(sortArrWordsASCbyCountVowels());
@@ -176,6 +176,31 @@ const log = console.log;
 
 {
     log(`================================== Task 4 =========================================`);
+    {
+        const testArr1 = [[['(']], ')', '(', ')', ')', ['(', ['('], [')']]];
+        const testArr2 = [[['(']], ')', '(', ')', ')', ['(', ['('], [')']], ')', ')', ')'];
+
+        function eachParenthesisHasPair(arr) {
+            if(!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
+
+            let flattenedArr = arr.slice(0).flat(Infinity);
+
+            let count = 0;
+            for ( let i = 0; i < flattenedArr.length; i++) {
+                if(flattenedArr[i] === '(') {
+                    count++;
+                } else if (flattenedArr[i] === ')') count--;
+            }
+            if( count < 0) return false;
+            return count === 0;
+        }
+
+        log(eachParenthesisHasPair(testArr1)); // true
+        log(eachParenthesisHasPair(testArr2)); // false
+        log(eachParenthesisHasPair());
+        log(eachParenthesisHasPair(572345234));
+
+    }
 }
 
 {
