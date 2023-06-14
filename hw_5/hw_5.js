@@ -166,7 +166,7 @@ const log = console.log;
 
     function sortArrWordsASCbyCountVowels(arr) {
         if(!arr || !Array.isArray(arr)) return `Check value not passed or not valid`
-        return arr.sort((a, b) => countVowels(a) - countVowels(b));
+        return arr.splice('').sort((a, b) => countVowels(a) - countVowels(b));
     }
 
     log(sortArrWordsASCbyCountVowels());
