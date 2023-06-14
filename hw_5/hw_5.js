@@ -103,7 +103,25 @@ const log = console.log;
         log(numberOfOccurrencesLettersInSentence('I am the best AQA ever!'));
     }
 
+    {
+        log(`====== Notes ======`);
+        function countChars_long(str) {
+            let result = {};
+            let chars = str.split("");
+            for (let i = 0; i < chars.length; i++) {
+                let count = result[chars[i]] ? result[chars[i]] : 0;
+                result[chars[i]] = count + 1;
+            }
+            return result;
+        }
 
+        function countChars_short(str) {
+            return str.split("").reduce((r, c) => (r[c] = (r[c] || 0) + 1, r), {});
+        }
+
+        log(countChars_long('aabbaccd'));
+        log(countChars_short('aabbaccd'));
+    }
 }
 
 {
