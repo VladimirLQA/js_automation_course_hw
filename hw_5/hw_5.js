@@ -7,7 +7,12 @@
   Итого: 8495 $, средняя цена товара 700 $ - пример сообщения в консоле.
   const prices = [64, 7556, 345, 7556, 345, 7556, 345, 7556, 433, 345, 756, 123, 942, 3112, 421, 9341, 1212, 8, 43, 41, 345, 341, 21, 321, 123];
 
-3. Написать функцию, которая принимает на вход строку с текстом, и заменяет каждую пару идентичных букв на одну следующую в алфавите,
+ TODO
+3. Напишите функцию, которая принимает на вход массив слов и возвращает отсортированный массив по по следующему критерию: количество гласных букв.
+  Массив должен быть отфильтрован по возврастанию количества гласных букв в слове.
+
+>>>>> later <<<<<
+  Написать функцию, которая принимает на вход строку с текстом, и заменяет каждую пару идентичных букв на одну следующую в алфавите,
    и так пока в тексте не останется двух одинаковых букв стоящих рядом (через пробел и другой знак препинания можно)
   Пример: aabc => bbc => cc => d
 
@@ -72,9 +77,10 @@ const log = console.log;
             }
             return result.join('')
         }
+
         log(numberOfOccurrencesLettersInSentence('I am the best AQA ever!'));
     }
-        log(`=====================================`);
+    log(`=====================================`);
     {
         function numberOfOccurrencesLettersInSentence(sentence) {
             const charCount = {};
@@ -105,6 +111,7 @@ const log = console.log;
 
     {
         log(`====== Notes ======`);
+
         function countChars_long(str) {
             let result = {};
             let chars = str.split("");
@@ -146,6 +153,25 @@ const log = console.log;
 
 {
     log(`================================== Task 3 =========================================`);
+
+    function countVowels(word) {
+        let dictVowels = 'aieou'.split('');
+        let count = 0;
+        for (let i = 0; i < word.length; i++) {
+            let char = word[i].toLowerCase();
+            if (dictVowels.includes(char)) count++
+        }
+        return count;
+    }
+
+    function sortArrWordsASCbyCountVowels(arr) {
+        if(!arr || !Array.isArray(arr)) return `Check value not passed or not valid`
+        return arr.sort((a, b) => countVowels(a) - countVowels(b));
+    }
+
+    log(sortArrWordsASCbyCountVowels());
+    log(sortArrWordsASCbyCountVowels('sdfsdfsdf'));
+    log(sortArrWordsASCbyCountVowels(['aieou', 'Peperoni', 'Diablo', 'Hawai', 'Caprichosa'])); // [ 'Diablo', 'Hawai', 'Peperoni', 'Caprichosa', 'aieou' ]
 }
 
 {
