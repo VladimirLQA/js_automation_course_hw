@@ -184,7 +184,7 @@ const log = console.log;
         const testArr1 = [[['(']], ')', '(', ')', ')', ['(', ['('], [')']]];
         const testArr2 = [[['(']], ')', '(', ')', ')', ['(', ['('], [')']], ')', ')', ')'];
 
-        function eachParenthesisHasPair(arr) {
+        function eachBracketHasPair(arr) {
             if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
 
             let flattenedArr = arr.slice(0).flat(Infinity);
