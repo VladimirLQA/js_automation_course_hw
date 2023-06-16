@@ -180,10 +180,30 @@ const log = console.log;
 
 {
     log(`================================== Task 4 =========================================`);
-    {
-        const testArr1 = [[['(']], ')', '(', ')', ')', ['(', ['('], [')']]];
-        const testArr2 = [[['(']], ')', '(', ')', ')', ['(', ['('], [')']], ')', ')', ')'];
+    const testArr1 = [[['(']], ')', '(', ')', ')', ['(', ['('], [')']]];
+    const testArr2 = [[['(']], ')', '(', ')', ')', ['(', ['('], [')']], ')', ')', ')'];
 
+    {
+
+        function eachBracketHasPair(arr) {
+            if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
+
+            let flattenedArr = arr.slice(0).flat(Infinity);
+
+            return flattenedArr.reduce((result, el) => {
+                if (el === '(') result++;
+                else  result--;
+                return result;
+            }, 0) === 0;
+        }
+
+        log(eachBracketHasPair(testArr1)); // true
+        log(eachBracketHasPair(testArr2)); // false
+        log(eachBracketHasPair());
+        log(eachBracketHasPair(572345234));
+    }
+        log(`=======================================`);
+    {
         function eachBracketHasPair(arr) {
             if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
 
@@ -199,16 +219,50 @@ const log = console.log;
             return count === 0;
         }
 
-        log(eachParenthesisHasPair(testArr1)); // true
-        log(eachParenthesisHasPair(testArr2)); // false
-        log(eachParenthesisHasPair());
-        log(eachParenthesisHasPair(572345234));
+        log(eachBracketHasPair(testArr1)); // true
+        log(eachBracketHasPair(testArr2)); // false
+        log(eachBracketHasPair());
+        log(eachBracketHasPair(572345234));
+    }
+        log(`=======================================`);
+    {
+        function eachBracketHasPair(arr) {
+            if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
+            let flattenedArr = arr.slice(0).flat(Infinity);
+            return flattenedArr.filter(el => el === '(').length === flattenedArr.filter(el => el === ')').length;
+        }
 
+        log(eachBracketHasPair(testArr1)); // true
+        log(eachBracketHasPair(testArr2)); // false
+        log(eachBracketHasPair());
+        log(eachBracketHasPair(572345234));
+    }
+        log(`=======================================`);
+    {
+        function eachBracketHasPair(arr) {
+            if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
+            let flattenedArr = arr.slice(0).flat(Infinity);
+            const [openBracket, closedBracket] = flattenedArr.reduce((result, el) => {
+                if( el === '(') result[0]++;
+                else  result[1]++;
+                return result;
+            }, [0, 0]);
+            return openBracket === closedBracket;
+        }
+
+        log(eachBracketHasPair(testArr1)); // true
+        log(eachBracketHasPair(testArr2)); // false
+        log(eachBracketHasPair());
+        log(eachBracketHasPair(572345234));
     }
 }
 
 {
     log(`================================== Task 5 =========================================`);
+
+    const testArr = [2, 1, 1, 3, 9, 8, 6, 5, 8, 4];
+    log([...new Set(testArr)].sort((a, b) => a - b));
+
 }
 
 {
