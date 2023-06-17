@@ -260,13 +260,13 @@ const log = console.log;
 {
     log(`================================== Task 5 =========================================`);
 
-    const testArr = [2, 1, 1, 3, 9, 8, 6, 5, 8, 4];
+    const testArr = [2, 1, 1, 3, 7, 8, 6, 5, 8, 4, 10, 11, 12, 13, 14];
 
     {
         function findMissingNumber(arr) {
             if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
             let uniqueArr = [...new Set(arr)];
-            return uniqueArr.map((n, i) => uniqueArr.indexOf(i) < 0 ? i : null).filter( f => f);
+            return uniqueArr.map((n, i) => uniqueArr.indexOf(i) < 0 ? i : null).filter(f => f);
         }
 
         log(findMissingNumber(testArr));
