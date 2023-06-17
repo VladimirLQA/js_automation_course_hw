@@ -192,7 +192,7 @@ const log = console.log;
 
             return flattenedArr.reduce((result, el) => {
                 if (el === '(') result++;
-                else  result--;
+                else result--;
                 return result;
             }, 0) === 0;
         }
@@ -202,7 +202,7 @@ const log = console.log;
         log(eachBracketHasPair());
         log(eachBracketHasPair(572345234));
     }
-        log(`=======================================`);
+    log(`=======================================`);
     {
         function eachBracketHasPair(arr) {
             if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
@@ -224,7 +224,7 @@ const log = console.log;
         log(eachBracketHasPair());
         log(eachBracketHasPair(572345234));
     }
-        log(`=======================================`);
+    log(`=======================================`);
     {
         function eachBracketHasPair(arr) {
             if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
@@ -237,14 +237,14 @@ const log = console.log;
         log(eachBracketHasPair());
         log(eachBracketHasPair(572345234));
     }
-        log(`=======================================`);
+    log(`=======================================`);
     {
         function eachBracketHasPair(arr) {
             if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
             let flattenedArr = arr.slice(0).flat(Infinity);
             const [openBracket, closedBracket] = flattenedArr.reduce((result, el) => {
-                if( el === '(') result[0]++;
-                else  result[1]++;
+                if (el === '(') result[0]++;
+                else result[1]++;
                 return result;
             }, [0, 0]);
             return openBracket === closedBracket;
@@ -260,25 +260,64 @@ const log = console.log;
 {
     log(`================================== Task 5 =========================================`);
 
-    const testArr = [2, 1, 1, 3, 7, 8, 6, 5, 8, 4, 10, 11, 12, 13, 14];
+    const testArr1 = [2, 1, 1, 3, 7, 8, 6, 5, 8, 4, 10, 11, 12, 13, 14];
+    const testArr2 = [2, 1, 1, 3, 7, 8, 6, 5, 8, 4, 9, 10];
 
     {
         function findMissingNumber(arr) {
             if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
-            let uniqueArr = [...new Set(arr)];
-            return uniqueArr.map((n, i) => uniqueArr.indexOf(i) < 0 ? i : null).filter(f => f);
+            let copiedArr = arr.slice(0);
+            return +copiedArr.map((n, i) => copiedArr.indexOf(i) < 0 ? i : null).filter(f => f);
         }
 
-        log(findMissingNumber(testArr));
+        log(findMissingNumber(testArr1));
+        log(findMissingNumber(testArr2));
         log(findMissingNumber());
         log(findMissingNumber('33452345'));
 
     }
         log(`===================================================`);
     {
+        function findMissingNumber(arr) {
+            if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
+            const n = arr.length + 1;
+            const set = new Set(arr);
 
+            const missingNumber = Array.from({length: n}, (_, index) => index + 1).reduce(
+                (acc, curr) => {
+                    if (!set.has(curr) && acc === null) {
+                        return curr;
+                    }
+                    return acc;
+                }, null);
+            return missingNumber;
+        }
+
+        log(findMissingNumber(testArr1));
+        log(findMissingNumber(testArr2));
+        log(findMissingNumber());
+        log(findMissingNumber('33452345'));
     }
+        log(`===================================================`);
+    {
+        function findMissingNumber(arr) {
+            if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
+            const n = arr.length + 1;
 
+            const set = new Set(arr);
+            const missingNumbers = Array.from({ length: n }, (_, index) => index + 1).map((number) => {
+                if (!set.has(number)) {
+                    return number;
+                }
+            });
+            return missingNumbers.find((number) => number !== undefined);
+        }
+
+        log(findMissingNumber(testArr1));
+        log(findMissingNumber(testArr2));
+        log(findMissingNumber());
+        log(findMissingNumber('33452345'));
+    }
 }
 
 {
