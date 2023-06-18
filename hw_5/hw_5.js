@@ -64,6 +64,7 @@
   Разобраться, как считать данные из файла КОДОМ, а не копировать ручками.*/
 
 const log = console.log;
+const fs = require('fs')
 
 {
     log(`================================== Task 1 =========================================`);
@@ -84,7 +85,7 @@ const log = console.log;
 
         log(numberOfOccurrencesLettersInSentence('I am the best AQA ever!'));
     }
-    log(`=====================================`);
+        log(`=====================================`);
     {
         function numberOfOccurrencesLettersInSentence(sentence) {
             const charCount = {};
@@ -202,7 +203,7 @@ const log = console.log;
         log(eachBracketHasPair());
         log(eachBracketHasPair(572345234));
     }
-    log(`=======================================`);
+        log(`=======================================`);
     {
         function eachBracketHasPair(arr) {
             if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
@@ -224,7 +225,7 @@ const log = console.log;
         log(eachBracketHasPair());
         log(eachBracketHasPair(572345234));
     }
-    log(`=======================================`);
+        log(`=======================================`);
     {
         function eachBracketHasPair(arr) {
             if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
@@ -237,7 +238,7 @@ const log = console.log;
         log(eachBracketHasPair());
         log(eachBracketHasPair(572345234));
     }
-    log(`=======================================`);
+        log(`=======================================`);
     {
         function eachBracketHasPair(arr) {
             if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
@@ -276,7 +277,7 @@ const log = console.log;
         log(findMissingNumber('33452345'));
 
     }
-    log(`===================================================`);
+        log(`===================================================`);
     {
         function findMissingNumber(arr) {
             if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
@@ -320,4 +321,27 @@ const log = console.log;
 
 {
     log(`================================== Task 6 =========================================`);
+
+    let data = fs.readFileSync('cards.json', 'utf-8');
+    let parsedData = JSON.parse(data);
+    {
+        // won't work if obj contains a circular reference or "BigInt" value is encountered
+        function removeDuplicatesInArr(arr) {
+            return [...new Set(arr.map(s => JSON.stringify(s)))]
+                .map(s => JSON.parse(s));
+        }
+
+        log(removeDuplicatesInArr(parsedData)); // length === 10
+    }
+        log(`==============================================================`);
+    {
+        function removeDuplicatesInArr(arr, key) {
+            return arr
+                .map(e => e[key]) // store values by passed key
+                .map((e, i, final) => final.indexOf(e) === i && i)  // store the keys of the unique objects
+                .filter(e => arr[e]).map(e => arr[e]); // eliminate the dead keys & store unique objects
+        }
+
+        log(removeDuplicatesInArr(parsedData, 'name')) // length === 10
+    }
 }
