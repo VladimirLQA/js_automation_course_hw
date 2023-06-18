@@ -276,21 +276,20 @@ const log = console.log;
         log(findMissingNumber('33452345'));
 
     }
-        log(`===================================================`);
+    log(`===================================================`);
     {
         function findMissingNumber(arr) {
             if (!arr || !Array.isArray(arr)) return `Check value not passed or not valid`;
             const n = arr.length + 1;
             const set = new Set(arr);
 
-            const missingNumber = Array.from({length: n}, (_, index) => index + 1).reduce(
+            return Array.from({length: n}, (_, index) => index + 1).reduce(
                 (acc, curr) => {
                     if (!set.has(curr) && acc === null) {
                         return curr;
                     }
                     return acc;
                 }, null);
-            return missingNumber;
         }
 
         log(findMissingNumber(testArr1));
@@ -305,12 +304,11 @@ const log = console.log;
             const n = arr.length + 1;
 
             const set = new Set(arr);
-            const missingNumbers = Array.from({ length: n }, (_, index) => index + 1).map((number) => {
+            return Array.from({length: n}, (_, index) => index + 1).map((number) => {
                 if (!set.has(number)) {
                     return number;
                 }
-            });
-            return missingNumbers.find((number) => number !== undefined);
+            }).find((number) => number !== undefined);
         }
 
         log(findMissingNumber(testArr1));
