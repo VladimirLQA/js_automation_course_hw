@@ -55,34 +55,46 @@ const characters = [
     log(`======================== #3-4 ===================================`)
     {
         log(`>>>>> For... of <<<<`);
-        const key_value_forOf = (arr) => {
-            return arr.forEach((el, i) => {
-                for(let [key, value] of Object.entries(el)) {
+        const key_value_forOF = (arr) => {
+            return arr.forEach((obj, i) => {
+                for(let [key, value] of Object.entries(obj)) {
                     log(`key = ${key}, value = ${value}`);
                 }
             })
         }
 
-        key_value_forOf(characters);
+        key_value_forOF(characters);
     }
 
     {
         log(`>>>>>>> forEach <<<<<<<`);
-        const key_value_forOf = (arr) => {
-            return arr.forEach((el, i) => {
-                Object.entries(el).forEach(([key, value]) => {
+        const key_value_forEach = (arr) => {
+            return arr.forEach((obj, i) => {
+                Object.entries(obj).forEach(([key, value]) => {
                     log(`key = ${key}, value = ${value}`);
                 })
             })
         }
 
-        key_value_forOf(characters);
+        key_value_forEach(characters);
+    }
 
+    {
+        log(`>>>>>>> For... in <<<<<<<`);
+        const key_value_forIN = (arr) => {
+            return arr.forEach((obj, i) => {
+                for(let key in obj) {
+                    log(`key = ${key}, value = ${obj[key]}`);
+                }
+            })
+        }
+
+        key_value_forIN(characters);
     }
 }
 
 {
-    log(`======================== #5  ===================================`)
+    log(`======================== #5 ===================================`);
     {
 
     }
