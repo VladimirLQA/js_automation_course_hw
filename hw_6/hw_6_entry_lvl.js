@@ -96,6 +96,18 @@ const characters = [
 {
     log(`======================== #5 ===================================`);
     {
+        const qa = {
+            name: 'Viva',
+            age: 21,
+            salary: 'mojna by i pobol\'she',
+            getInfo() {
+                return `Hello, my name is ${this.name}, I'm ${this.age} and my salary is ${this.salary}`
+            },
+        };
 
+        // log(qa.age);
+        // log(qa.salary);
+        // log(qa.name);
+        log(qa.getInfo());
     }
 }
