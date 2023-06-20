@@ -159,7 +159,22 @@ const countEmployee = (number) => {
 {
     log(`===================================== # 2 ======================================`);
     {
-
+        const getEnterpriseName = (arg) => {
+            if (!arg) return `Department id or name not passed`;
+            let enterprise;
+            enterprises.forEach(comp => {
+                let department;
+                if(comp.departments) {
+                    department = comp.departments.find(division => {return division.id === arg || division.name === arg});
+                }
+                if(department) enterprise = comp.name;
+            })
+            return enterprise ? enterprise : `There is no department with id == ${arg} or name == ${arg}`;
+        }
+        log(getEnterpriseName(2));
+        log(getEnterpriseName('Отдел разработки'));
+        log(getEnterpriseName(33));
+        log(getEnterpriseName());
     }
 }
 
