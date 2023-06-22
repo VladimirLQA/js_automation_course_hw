@@ -1,4 +1,4 @@
-function getNewID(arr) {
+const getNewID = (arr) => {
     const maxID = arr.map((company) => {
         let companyID = company.id;
         if (company.departments) {
@@ -9,14 +9,27 @@ function getNewID(arr) {
     });
 
     return Math.max(...maxID) + 1;
-}
+};
+
+const countEmployee = (number) => {
+    let lastNumber = number.toString().split('').pop();
+    if (lastNumber && number) {
+        if (lastNumber == 1) return `${number} - сотрудник`;
+        else if (lastNumber > 1 && lastNumber < 5) return `${number} - сотрудника`;
+        else return `${number} - сотрудников`;
+    } else return "Нет сотрудников"
+};
 
 
 module.exports = {
     getNewID,
+    countEmployee,
 
 }
 
+
+// ====================================== variations of util for task 3  ================================
+ // forEach
 {
     const getNewID = (arr) => {
         let newID = 0;
@@ -32,6 +45,7 @@ module.exports = {
     };
 }
 
+// reduce
 {
     const getNewID = (arr) => {
         return arr.reduce((newID, company) => {
@@ -47,6 +61,7 @@ module.exports = {
     };
 }
 
+ // map
 {
     const getNewID = (arr) => {
         const maxID = arr.map((company) => {
@@ -57,6 +72,29 @@ module.exports = {
             }
             return companyID;
         });
+
+        return Math.max(...maxID) + 1;
+    };
+}
+
+// for... of
+
+{
+    const getNewID = (arr) => {
+        const maxID = [];
+
+        for (const company of arr) {
+            let companyID = company.id;
+            if (company.departments) {
+                const departmentIDs = [];
+                for (const department of company.departments) {
+                    departmentIDs.push(department.id);
+                }
+                const maxDepartmentID = Math.max(...departmentIDs);
+                companyID = Math.max(companyID, maxDepartmentID);
+            }
+            maxID.push(companyID);
+        }
 
         return Math.max(...maxID) + 1;
     };

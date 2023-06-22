@@ -66,7 +66,7 @@ moveEmployees(2, 3)*/
 const log = console.log;
 
 // utils
-const {getNewID} = require('./utils_task_2');
+const {getNewID, countEmployee} = require('./utils_task_2');
 
 
 const enterprises = [
@@ -124,17 +124,6 @@ const enterprises = [
         ]
     }
 ];
-
-// for task #1
-const countEmployee = (number) => {
-    let lastNumber = number.toString().split('').pop();
-    if (lastNumber && number) {
-        if (lastNumber == 1) return `${number} - сотрудник`;
-        else if (lastNumber > 1 && lastNumber < 5) return `${number} - сотрудника`;
-        else return `${number} - сотрудников`;
-    } else return "Нет сотрудников"
-};
-
 
 
 {
