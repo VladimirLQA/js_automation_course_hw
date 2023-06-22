@@ -65,6 +65,10 @@ moveEmployees(2, 3)*/
 
 const log = console.log;
 
+// utils
+const {getNewID} = require('./utils_task_2');
+
+
 const enterprises = [
     {
         id: 1,
@@ -121,15 +125,16 @@ const enterprises = [
     }
 ];
 
-// for #1 task
+// for task #1
 const countEmployee = (number) => {
     let lastNumber = number.toString().split('').pop();
-    if(lastNumber && number) {
-        if(lastNumber == 1) return `${number} - сотрудник`;
+    if (lastNumber && number) {
+        if (lastNumber == 1) return `${number} - сотрудник`;
         else if (lastNumber > 1 && lastNumber < 5) return `${number} - сотрудника`;
         else return `${number} - сотрудников`;
-    }  else return "Нет сотрудников"
+    } else return "Нет сотрудников"
 };
+
 
 
 {
@@ -164,10 +169,12 @@ const countEmployee = (number) => {
             let enterprise;
             enterprises.forEach(comp => {
                 let department;
-                if(comp.departments) {
-                    department = comp.departments.find(division => {return division.id === arg || division.name === arg});
+                if (comp.departments) {
+                    department = comp.departments.find(division => {
+                        return division.id === arg || division.name === arg
+                    });
                 }
-                if(department) enterprise = comp.name;
+                if (department) enterprise = comp.name;
             })
             return enterprise ? enterprise : `There is no department with id == ${arg} or name == ${arg}`;
         }
@@ -181,7 +188,17 @@ const countEmployee = (number) => {
 {
     log(`===================================== # 3 ======================================`);
     {
+        const addCompany = (companyName) => {
+            if (typeof companyName !== 'string' || !companyName) return `Enterprise name not passed or has incorrect type`;
+            enterprises.push({
+                id: getNewID(enterprises),
+                name: companyName,
+                departments: []
+            });
+        }
 
+        addCompany('New company test');
+        log(enterprises);
     }
 }
 
