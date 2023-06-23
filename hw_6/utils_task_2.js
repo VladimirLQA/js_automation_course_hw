@@ -24,7 +24,6 @@ const countEmployee = (number) => {
 module.exports = {
     getNewID,
     countEmployee,
-
 }
 
 

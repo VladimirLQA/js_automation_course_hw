@@ -125,6 +125,22 @@ const enterprises = [
     }
 ];
 
+const getEnterprise = (val) => {
+    if (typeof val !== 'number') return `Passed value not valid`;
+    let enterprise = enterprises.find(el => el.id === val || el.name === val);
+    return enterprise ? enterprise : false;
+};
+
+const getDepartment = (val) => {
+    let department;
+    enterprises.forEach((company) => {
+        const dept = company.departments.find((el) => {
+            return el.id == val || el.name == val;
+        });
+        if (dept) department = dept;
+    });
+    return department ? department : false;
+};
 
 {
     log(`===================================== # 1 ======================================`);
@@ -144,7 +160,8 @@ const enterprises = [
                 }
                 log(departments.join('\n'));
             });
-        }
+        };
+
         getStructure(enterprises);
         getStructure();
     }
@@ -177,16 +194,16 @@ const enterprises = [
 {
     log(`===================================== # 3 ======================================`);
     {
-        const addCompany = (companyName) => {
+        const addEnterprise = (companyName) => {
             if (typeof companyName !== 'string' || !companyName) return `Enterprise name not passed or has incorrect type`;
             enterprises.push({
                 id: getNewID(enterprises),
                 name: companyName,
                 departments: []
             });
-        }
+        };
 
-        addCompany('New company test');
+        addEnterprise('New company test');
         log(enterprises);
     }
 }
@@ -194,14 +211,30 @@ const enterprises = [
 {
     log(`===================================== # 4 ======================================`);
     {
+        const addDepartment = (compID, deptName, empl_count = 0) => {
+            const enterprise = getEnterprise(compID);
+            if (enterprise) enterprise.departments.push({
+                id: getNewID(enterprises),
+                name: deptName,
+                employees_count: empl_count,
+            })
+        };
 
+        addDepartment(1, 'Department name test', 22);
     }
 }
 
 {
     log(`===================================== # 5 ======================================`);
     {
+        const changeEnterpriseName = (enterpriseID, newName) => {
+            if (!enterpriseID || !newName) return `Enterprise id or new name is not provided`;
+            let enterprise = getEnterprise(+enterpriseID);
+            if (typeof enterprise === 'object') enterprise.name = newName;
+            else log(`Enterprise not received`);
+        };
 
+        changeEnterpriseName(1, 'New enterprise name test');
     }
 }
 
