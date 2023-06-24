@@ -20,11 +20,32 @@ const countEmployee = (number) => {
     } else return "Нет сотрудников"
 };
 
+const getEnterprise = (val, searchArr) => {
+    if (typeof val !== 'number') return `Passed value not valid`;
+    let enterprise = searchArr.find(el => el.id === val || el.name === val);
+    return enterprise ? enterprise : false;
+};
+
+const getDepartment = (val, searchArr) => {
+    let department;
+    searchArr.forEach((company) => {
+        const dept = company.departments.find((el) => {
+            return el.id === val || el.name === val;
+        });
+        if (dept) department = dept;
+    });
+    return department ? department : false;
+};
+
+const log = console.log;
 
 module.exports = {
     getNewID,
     countEmployee,
-}
+    getDepartment,
+    getEnterprise,
+    log,
+};
 
 
 // ====================================== variations of util for task 3  ================================
