@@ -63,84 +63,12 @@ deleteDepartment(3)
 Пример:
 moveEmployees(2, 3)*/
 
-const log = console.log;
 
 // utils
-const {getNewID, countEmployee} = require('./utils_task_2');
+const {getNewID, countEmployee, getDepartment, getEnterprise, log} = require('./utils_task_2');
 
-
-const enterprises = [
-    {
-        id: 1,
-        name: "Предприятие 1",
-        departments: [
-            {
-                id: 2,
-                name: "Отдел тестирования",
-                employees_count: 10,
-            },
-            {
-                id: 3,
-                name: "Отдел маркетинга",
-                employees_count: 20,
-            },
-            {
-                id: 4,
-                name: "Администрация",
-                employees_count: 15,
-            },
-        ]
-    },
-    {
-        id: 5,
-        name: "Предприятие 2",
-        departments: [
-            {
-                id: 6,
-                name: "Отдел разработки",
-                employees_count: 50,
-            },
-            {
-                id: 7,
-                name: "Отдел маркетинга",
-                employees_count: 20,
-            },
-            {
-                id: 8,
-                name: "Отдел охраны труда",
-                employees_count: 5,
-            },
-        ]
-    },
-    {
-        id: 9,
-        name: "Предприятие 3",
-        departments: [
-            {
-                id: 10,
-                name: "Отдел аналитики",
-                employees_count: 0,
-            },
-        ]
-    }
-];
-
-const getEnterprise = (val) => {
-    if (typeof val !== 'number') return `Passed value not valid`;
-    let enterprise = enterprises.find(el => el.id === val || el.name === val);
-    return enterprise ? enterprise : false;
-};
-
-const getDepartment = (val) => {
-    let department;
-    enterprises.forEach((company) => {
-        const dept = company.departments.find((el) => {
-            return el.id == val || el.name == val;
-        });
-        if (dept) department = dept;
-    });
-    return department ? department : false;
-};
+// data
+const {company, enterprises} = require('./data_storage');
 
 {
     log(`===================================== # 1 ======================================`);
@@ -204,7 +132,7 @@ const getDepartment = (val) => {
         };
 
         addEnterprise('New company test');
-        log(enterprises);
+        log(enterprises.at(-1));
     }
 }
 
@@ -212,7 +140,7 @@ const getDepartment = (val) => {
     log(`===================================== # 4 ======================================`);
     {
         const addDepartment = (compID, deptName, empl_count = 0) => {
-            const enterprise = getEnterprise(compID);
+            const enterprise = getEnterprise(compID, enterprises);
             if (enterprise) enterprise.departments.push({
                 id: getNewID(enterprises),
                 name: deptName,
@@ -221,6 +149,7 @@ const getDepartment = (val) => {
         };
 
         addDepartment(1, 'Department name test', 22);
+        log(enterprises.at(0));
     }
 }
 
@@ -229,12 +158,13 @@ const getDepartment = (val) => {
     {
         const changeEnterpriseName = (enterpriseID, newName) => {
             if (!enterpriseID || !newName) return `Enterprise id or new name is not provided`;
-            let enterprise = getEnterprise(+enterpriseID);
+            let enterprise = getEnterprise(+enterpriseID, enterprises);
             if (typeof enterprise === 'object') enterprise.name = newName;
             else log(`Enterprise not received`);
         };
 
         changeEnterpriseName(1, 'New enterprise name test');
+        log(enterprises.at(0));
     }
 }
 
