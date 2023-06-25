@@ -95,29 +95,28 @@ const {enterprises} = require('./data_storage');
     }
 }
 
-{
-    log(`===================================== # 2 ======================================`);
-    {
-        const getEnterpriseName = (arg) => {
-            if (!arg) return `Department id or name not passed`;
-            let enterprise;
-            enterprises.forEach(comp => {
-                let department;
-                if (comp.departments) {
-                    department = comp.departments.find(division => {
-                        return division.id === arg || division.name === arg
-                    });
-                }
-                if (department) enterprise = comp.name;
-            })
-            return enterprise ? enterprise : `There is no department with id == ${arg} or name == ${arg}`;
+
+log(`===================================== # 2 ======================================`);
+
+const getEnterpriseByDeptIDorName = (arg) => {
+    if (!arg) return `Department id or name not passed`;
+    let enterprise;
+    enterprises.forEach(comp => {
+        let department;
+        if (comp.departments) {
+            department = comp.departments.find(division => {
+                return division.id === arg || division.name === arg
+            });
         }
-        log(getEnterpriseName(2));
-        log(getEnterpriseName('Отдел разработки'));
-        log(getEnterpriseName(33));
-        log(getEnterpriseName());
-    }
+        if (department) enterprise = comp.name;
+    })
+    return enterprise ? enterprise : `There is no department with id == ${arg} or name == ${arg}`;
 }
+log(getEnterpriseByDeptIDorName(2));
+log(getEnterpriseByDeptIDorName('Отдел разработки'));
+log(getEnterpriseByDeptIDorName(33));
+log(getEnterpriseByDeptIDorName());
+
 
 {
     log(`===================================== # 3 ======================================`);
@@ -139,12 +138,12 @@ const {enterprises} = require('./data_storage');
 {
     log(`===================================== # 4 ======================================`);
     {
-        const addDepartment = (compID, deptName, empl_count = 0) => {
+        const addDepartment = (compID, deptName, employee_count = 0) => {
             const enterprise = getEnterprise(compID, enterprises);
             if (enterprise) enterprise.departments.push({
                 id: getNewID(enterprises),
                 name: deptName,
-                employees_count: empl_count,
+                employees_count: employee_count,
             })
         };
 
@@ -208,7 +207,7 @@ const {enterprises} = require('./data_storage');
         const deleteDepartmentByID = (enterpriseID) => {
             let checkArr = [];
             if (!enterpriseID) return `Department id is not provided`;
-            for ( let enterprise of enterprises) {
+            for (let enterprise of enterprises) {
                 let index = enterprise.departments.findIndex((el) => el.id === enterpriseID && el.employees_count === 0);
                 checkArr.push(index);
                 if (index !== -1) enterprise.departments.splice(index, 1);
@@ -231,7 +230,7 @@ const {enterprises} = require('./data_storage');
                     acc.push(index);
                 }
                 return acc;
-                }, []);
+            }, []);
             if (checkArr.every((value) => value < 0)) return log(`The department was not found for the given identifier`);
         };
 
@@ -241,9 +240,18 @@ const {enterprises} = require('./data_storage');
     }
 }
 
-{
-    log(`===================================== # 9 ======================================`);
-    {
 
-    }
+log(`===================================== # 9 ======================================`);
+
+const moveEmployees = (whereFromDepartID, whereToDepartID) => {
+    const from = getDepartment(whereFromDepartID, enterprises);
+    const to = getDepartment(whereToDepartID, enterprises);
+    if (from && to && getEnterpriseByDeptIDorName(whereFromDepartID) === getEnterpriseByDeptIDorName(whereToDepartID)) {
+        to.employees_count += from.employees_count;
+        from.employees_count = 0;
+    } else return log('Some error occurred while processing the request');
 }
+
+moveEmployees(6, 8);
+log(enterprises.at(0)); // In the department 'Отдел охраны труда' should be 55 workers
+
