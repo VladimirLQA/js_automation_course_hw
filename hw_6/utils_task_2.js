@@ -21,12 +21,31 @@ const countEmployee = (number) => {
 };
 
 const getEnterprise = (val, searchArr) => {
-    if (typeof val !== 'number') return `Passed value not valid`;
+    if (!val || isNaN(val)) return `Passed enterprise id not valid`;
+    if (!searchArr) return `Searched arr not passed`;
     let enterprise = searchArr.find(el => el.id === val || el.name === val);
     return enterprise ? enterprise : false;
 };
 
+{
+    const getEnterprise = (val, searchArr) => {
+        if (!val || isNaN(val)) return `Passed enterprise id not valid`;
+        if (!searchArr) return `Searched arr not passed`;
+
+        let enterprise = searchArr.reduce((foundEnterprise, value) => {
+            if (foundEnterprise) return foundEnterprise;
+            if (value.id === val || value.name === val) return value;
+            return foundEnterprise;
+        }, null)
+
+        return enterprise ? enterprise : false;
+    }
+}
+
+
 const getDepartment = (val, searchArr) => {
+    if (!val || isNaN(val)) return `Passed department id not valid`;
+    if (!searchArr) return `Searched arr not passed`;
     let department;
     searchArr.forEach((company) => {
         const dept = company.departments.find((el) => {
@@ -36,6 +55,23 @@ const getDepartment = (val, searchArr) => {
     });
     return department ? department : false;
 };
+
+{
+    // reduce
+    const getDepartment = (val, searchArr) => {
+        if (!val || isNaN(val)) return `Passed department id not valid`;
+        if (!searchArr) return `Searched arr not passed`;
+
+        const department = searchArr.reduce((foundDepartment, company) => {
+            if (foundDepartment) return foundDepartment;
+
+            const dept = company.departments.find((el) => el.id === val || el.name === val);
+            return dept ? dept : foundDepartment;
+        }, null);
+
+        return department ? department : false;
+    };
+}
 
 const log = console.log;
 
@@ -49,7 +85,7 @@ module.exports = {
 
 
 // ====================================== variations of util for task 3  ================================
- // forEach
+// forEach
 {
     const getNewID = (arr) => {
         let newID = 0;
@@ -81,7 +117,7 @@ module.exports = {
     };
 }
 
- // map
+// map
 {
     const getNewID = (arr) => {
         const maxID = arr.map((company) => {

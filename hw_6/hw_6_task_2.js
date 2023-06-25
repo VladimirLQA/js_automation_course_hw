@@ -68,7 +68,7 @@ moveEmployees(2, 3)*/
 const {getNewID, countEmployee, getDepartment, getEnterprise, log} = require('./utils_task_2');
 
 // data
-const {company, enterprises} = require('./data_storage');
+const {enterprises} = require('./data_storage');
 
 {
     log(`===================================== # 1 ======================================`);
@@ -131,7 +131,7 @@ const {company, enterprises} = require('./data_storage');
             });
         };
 
-        addEnterprise('New company test');
+        addEnterprise('Added enterprise test');
         log(enterprises.at(-1));
     }
 }
@@ -148,7 +148,7 @@ const {company, enterprises} = require('./data_storage');
             })
         };
 
-        addDepartment(1, 'Department name test', 22);
+        addDepartment(1, 'Added department test', 22);
         log(enterprises.at(0));
     }
 }
@@ -156,14 +156,14 @@ const {company, enterprises} = require('./data_storage');
 {
     log(`===================================== # 5 ======================================`);
     {
-        const changeEnterpriseName = (enterpriseID, newName) => {
+        const editEnterpriseName = (enterpriseID, newName) => {
             if (!enterpriseID || !newName) return `Enterprise id or new name is not provided`;
             let enterprise = getEnterprise(+enterpriseID, enterprises);
             if (typeof enterprise === 'object') enterprise.name = newName;
             else log(`Enterprise not received`);
         };
 
-        changeEnterpriseName(1, 'New enterprise name test');
+        editEnterpriseName(1, 'New enterprise name test');
         log(enterprises.at(0));
     }
 }
@@ -171,21 +171,73 @@ const {company, enterprises} = require('./data_storage');
 {
     log(`===================================== # 6 ======================================`);
     {
+        {
+            const editDepartmentName = (enterpriseID, newName) => {
+                if (!enterpriseID || !newName) return `Department id or new name is not provided`;
+                let department = getDepartment(+enterpriseID, enterprises);
+                if (typeof department === 'object') department.name = newName;
+                else log(`Department not received`);
+            };
 
+            editDepartmentName(2, 'New department name test');
+            log(enterprises.at(0));
+        }
     }
 }
 
 {
     log(`===================================== # 7 ======================================`);
     {
+        const deleteEnterpriseByID = (enterpriseID) => {
+            if (!enterpriseID) return `Enterprise id is not provided`;
+            const index = enterprises.findIndex(el => el.id === enterpriseID);
+            if (index !== -1) enterprises.splice(index, 1);
+            else log(`The enterprise was not found for the given identifier`);
 
+        }
+
+        deleteEnterpriseByID(1);
+        deleteEnterpriseByID(2);
+        log(enterprises.at(0)); // first enterprise in array has id: 5
     }
 }
 
 {
     log(`===================================== # 8 ======================================`);
     {
+        const deleteDepartmentByID = (enterpriseID) => {
+            let checkArr = [];
+            if (!enterpriseID) return `Department id is not provided`;
+            for ( let enterprise of enterprises) {
+                let index = enterprise.departments.findIndex((el) => el.id === enterpriseID && el.employees_count === 0);
+                checkArr.push(index);
+                if (index !== -1) enterprise.departments.splice(index, 1);
+            }
+            if (checkArr.every(value => value < 0)) return log(`The department was not found for the given identifier`);
+        }
 
+        // deleteDepartmentByID(10);
+        // deleteDepartmentByID(9);
+        // log(enterprises.at(1)); // There is no departments in enterprise with id: 9;
+    }
+
+    {
+        const deleteDepartmentByID = (enterpriseID) => {
+            if (!enterpriseID) return `Department id is not provided`;
+            const checkArr = enterprises.reduce((acc, enterprise) => {
+                const index = enterprise.departments.findIndex((el) => el.id === enterpriseID && el.employees_count === 0);
+                if (index !== -1) {
+                    enterprise.departments.splice(index, 1);
+                    acc.push(index);
+                }
+                return acc;
+                }, []);
+            if (checkArr.every((value) => value < 0)) return log(`The department was not found for the given identifier`);
+        };
+
+        deleteDepartmentByID(10);
+        deleteDepartmentByID(9);
+        log(enterprises.at(1)); // There is no departments in enterprise with id: 9;
     }
 }
 
