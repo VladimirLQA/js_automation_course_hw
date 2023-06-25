@@ -21,7 +21,7 @@ const countEmployee = (number) => {
 };
 
 const getEnterprise = (val, searchArr) => {
-    if (!val || isNaN(val)) return `Passed enterprise id not valid`;
+    if (!val || typeof val !== 'number') return `Passed enterprise id not valid`;
     if (!searchArr) return `Searched arr not passed`;
     let enterprise = searchArr.find(el => el.id === val || el.name === val);
     return enterprise ? enterprise : false;
@@ -29,7 +29,7 @@ const getEnterprise = (val, searchArr) => {
 
 {
     const getEnterprise = (val, searchArr) => {
-        if (!val || isNaN(val)) return `Passed enterprise id not valid`;
+        if (!val || typeof val !== 'number') return `Passed enterprise id not valid`;
         if (!searchArr) return `Searched arr not passed`;
 
         let enterprise = searchArr.reduce((foundEnterprise, value) => {
@@ -44,7 +44,7 @@ const getEnterprise = (val, searchArr) => {
 
 
 const getDepartment = (val, searchArr) => {
-    if (!val || isNaN(val)) return `Passed department id not valid`;
+    if (!val || typeof val !== 'number') return `Passed department id not valid`;
     if (!searchArr) return `Searched arr not passed`;
     let department;
     searchArr.forEach((company) => {
@@ -59,7 +59,7 @@ const getDepartment = (val, searchArr) => {
 {
     // reduce
     const getDepartment = (val, searchArr) => {
-        if (!val || isNaN(val)) return `Passed department id not valid`;
+        if (!val || typeof val !== 'number') return `Passed department id not valid`;
         if (!searchArr) return `Searched arr not passed`;
 
         const department = searchArr.reduce((foundDepartment, company) => {
