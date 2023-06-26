@@ -82,7 +82,7 @@ const log = console.log;
     log(`=========================== #1 =================================`);
 
     const generateRandomNumber = (n) => {
-        let numbers = Array.from({ length: n }, (_, i) => i + 1);
+        let numbers = Array.from({length: n}, (_, i) => i + 1);
         let count = 0;
         return () => {
             if (count >= n) return 'All numbers were received';
@@ -134,10 +134,85 @@ const log = console.log;
 
 {
     log(`=========================== #2 =================================`);
+
+    Date.prototype.isValid = d => !isNaN(Date.parse(d));
+
+    const adultAndCountedMonths = (date) => {
+        if (!new Date().isValid(date)) return `Passed date is not correct`;
+
+        const currDate = new Date();
+        const passedDate = new Date(date);
+
+        const age = currDate.getFullYear() - passedDate.getFullYear();
+        const monthDiff = currDate.getMonth() - passedDate.getMonth() + 12 * age;
+        if (age < 18) {
+            return `You're not 18 years old`;
+        } else {
+            return `You're 18 years old and counted months = ${monthDiff}`;
+        }
+    }
+    // log(Date.parse('dfghsdfg'))
+
+    log(adultAndCountedMonths('2021/06/26'));
+    log(adultAndCountedMonths('2005/06/26'));
+    log(adultAndCountedMonths(3423423));
+    log(adultAndCountedMonths());
+    log(adultAndCountedMonths('342342342'));
 }
 
 {
     log(`=========================== #3 =================================`);
+
+    {
+        function cakes(recipe, available) {
+            let maxCakes = Infinity;
+            for (const ingredient in recipe) {
+                if (!(ingredient in available)) {
+                    return 0;
+                }
+
+                const possibleCakes = Math.floor(available[ingredient] / recipe[ingredient]);
+                if (possibleCakes < maxCakes) {
+                    maxCakes = possibleCakes;
+                }
+            }
+            return maxCakes;
+        }
+
+        log(cakes({flour: 500, sugar: 200, eggs: 1}, {flour: 1200, sugar: 1200, eggs: 5, milk: 200}));
+        log(cakes({apples: 3, flour: 300, sugar: 150, milk: 100, oil: 100}, {sugar: 500, flour: 2000, milk: 2000}));
+    }
+        log(`============================================================================================`);
+    {
+        function cakes(recipe, available) {
+            return Object.keys(recipe).reduce((maxCakes, ingredient) => {
+                if (!(ingredient in available)) {
+                    return 0;
+                }
+                const possibleCakes = Math.floor(available[ingredient] / recipe[ingredient]);
+
+                return possibleCakes < maxCakes ? possibleCakes : maxCakes;
+            }, Infinity);
+        }
+
+        log(cakes({flour: 500, sugar: 200, eggs: 1}, {flour: 1200, sugar: 1200, eggs: 5, milk: 200}));
+        log(cakes({apples: 3, flour: 300, sugar: 150, milk: 100, oil: 100}, {sugar: 500, flour: 2000, milk: 2000}));
+    }
+        log(`============================================================================================`);
+    {
+        function cakes(recipe, available) {
+            return Math.min(...Object.keys(recipe).map((ingredient) => {
+                if (!(ingredient in available)) {
+                    return 0;
+                }
+
+                return Math.floor(available[ingredient] / recipe[ingredient]);
+            }));
+        }
+
+        log(cakes({flour: 500, sugar: 200, eggs: 1}, {flour: 1200, sugar: 1200, eggs: 5, milk: 200}));
+        log(cakes({apples: 3, flour: 300, sugar: 150, milk: 100, oil: 100}, {sugar: 500, flour: 2000, milk: 2000}));
+    }
 }
 
 {
