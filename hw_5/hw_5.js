@@ -85,7 +85,38 @@ const fs = require('fs')
 
         log(numberOfOccurrencesLettersInSentence('I am the best AQA ever!'));
     }
-        log(`=====================================`);
+        log(`================ reduce =====================`);
+    {
+        const numberOfOccurrencesLettersInSentence = (sentence) => {
+            let lowerCase = sentence.toLowerCase().split('');
+            return lowerCase.reduce((result, char) => {
+                if (char >= 'a' && char <= 'z') {
+                    result.push(lowerCase.filter(el => el === char).length)
+                } else {
+                    result.push(char);
+                }
+                return result;
+            }, []).join('')
+        }
+
+        log(numberOfOccurrencesLettersInSentence('I am the best AQA ever!'));
+    }
+        log(`================ map =====================`);
+    {
+        const numberOfOccurrencesLettersInSentence = (sentence) => {
+            let lowerCase = sentence.toLowerCase().split('');
+            return lowerCase.map((char) => {
+                if (char >= 'a' && char <= 'z') {
+                    return lowerCase.filter((el) => el === char).length;
+                } else {
+                    return char;
+                }
+            }).join('');
+        };
+
+        log(numberOfOccurrencesLettersInSentence('I am the best AQA ever!'));
+    }
+        log(`================== for ===================`);
     {
         function numberOfOccurrencesLettersInSentence(sentence) {
             const charCount = {};
