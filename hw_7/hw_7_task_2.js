@@ -217,4 +217,96 @@ const log = console.log;
 
 {
     log(`=========================== #4 =================================`);
+
+    class Team {
+
+        constructor(name, sprintDuration) {
+            this._releaseDate = null;
+            this._dailyStandup = null;
+            this._teammates = [];
+            this._tasks = new Set();
+            this._name = name;
+            this._sprintDuration = sprintDuration;
+        }
+
+        get teamName() {
+            return this._name;
+        }
+
+        set teamName(nameOfTeam) {
+            this._name = nameOfTeam;
+        }
+
+        get sprintDuration() {
+            return this._sprintDuration;
+        }
+
+        set sprintDuration(duration) {
+            this._sprintDuration = duration;
+        }
+
+        get releaseDate() {
+            return this._releaseDate = new Date(new Date().setDate(new Date().getDate() + 2 * 7)).toLocaleDateString();
+        }
+
+        get dailyStandup() {
+            return this._dailyStandup;
+        }
+
+        set dailyStandup(time) {
+            this._dailyStandup = time;
+        }
+
+        get numberOfTeammates() {
+            return this._teammates.length;
+        }
+
+        addTeammate(teammate) {
+            this._teammates.push(teammate);
+        }
+
+        removeTeammate(teammate){
+            this._teammates = this._teammates.filter((el, _, array) => el.name !== teammate);
+
+            // const i = this._teammates.filter(el => el.name !== teammate);
+            // if (i !== -1) this._teammates.splice(i, 1);
+        }
+
+        editTeammate(old, updated) {
+
+        }
+
+
+    }
+
+    const qa = new Team('Quality assurance', 2);
+    qa.teamName = 'Sharks in testing world';
+    log(`New team name - ${qa.teamName}`);
+
+    qa.sprintDuration = 3;
+    log(`Set new sprint duration - ${qa.sprintDuration} weeks`);
+
+    log(`Next planned release date - ${qa.releaseDate}`);
+
+    qa.dailyStandup = new Date().toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'});
+    log(`We have changeable daily stand up at ${qa.dailyStandup}`);
+
+    log(`Numbers of teammates before adding: ${qa.numberOfTeammates}`);
+
+    qa.addTeammate({name: 'Frank', specialization: 'Developer'});
+    qa.addTeammate({name: 'Helen', specialization: 'Designer'});
+    qa.addTeammate({name: 'Gimmle', specialization: 'Scrum master'});
+    qa.addTeammate({name: 'Sun', specialization: 'QA Lead'});
+
+    log(`Numbers of teammates after adding: ${qa.numberOfTeammates}`);
+
+    qa.removeTeammate('Sun');
+    log(`Numbers of teammates after removing: ${qa.numberOfTeammates}`);
+
+
+    log(qa)
+
+
 }
+
+
