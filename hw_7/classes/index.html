@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HW-7</title>
+</head>
+<body>
+
+<div id="qaInfo"></div>
+<script type="module">
+    import {QA} from './QA.mjs';
+
+    const newQA = new QA('Vova', 'Junior', 2, 22, 'Ukraine', 2500, false);
+    const qaInfoDiv = document.getElementById('qaInfo');
+    qaInfoDiv.innerHTML += `
+    <h1>QA Information</h1>
+    <p>Name: ${newQA.name()}</p>
+    <p>Grade: ${newQA.grade()}</p>
+    <p>Experience: ${newQA.experience_in_years()} years</p>
+    <p>Age: ${newQA.age()}</p>
+    <p>Country: ${newQA.country()}</p>
+    <p>Salary: ${newQA.salary()}</p>
+    <p>Is AQA: ${newQA.isAqa}</p>
+`;
+</script>
+</body>
+</html>
