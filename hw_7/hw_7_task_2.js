@@ -182,7 +182,7 @@ const log = console.log;
         log(cakes({flour: 500, sugar: 200, eggs: 1}, {flour: 1200, sugar: 1200, eggs: 5, milk: 200}));
         log(cakes({apples: 3, flour: 300, sugar: 150, milk: 100, oil: 100}, {sugar: 500, flour: 2000, milk: 2000}));
     }
-        log(`============================================================================================`);
+    log(`============================================================================================`);
     {
         function cakes(recipe, available) {
             return Object.keys(recipe).reduce((maxCakes, ingredient) => {
@@ -198,7 +198,7 @@ const log = console.log;
         log(cakes({flour: 500, sugar: 200, eggs: 1}, {flour: 1200, sugar: 1200, eggs: 5, milk: 200}));
         log(cakes({apples: 3, flour: 300, sugar: 150, milk: 100, oil: 100}, {sugar: 500, flour: 2000, milk: 2000}));
     }
-        log(`============================================================================================`);
+    log(`============================================================================================`);
     {
         function cakes(recipe, available) {
             return Math.min(...Object.keys(recipe).map((ingredient) => {
@@ -265,15 +265,54 @@ const log = console.log;
             this._teammates.push(teammate);
         }
 
-        removeTeammate(teammate){
+        removeTeammate(teammate) {
             this._teammates = this._teammates.filter((el, _, array) => el.name !== teammate);
 
-            // const i = this._teammates.filter(el => el.name !== teammate);
+            // const i = this._teammates.indexOf(teammate);
             // if (i !== -1) this._teammates.splice(i, 1);
         }
 
-        editTeammate(old, updated) {
+        editTeammate(oldTeammate, updatedTeammate) {
+            // this._teammates = this._teammates.map((el) => {
+            //     if (el.name === oldTeammate) return updatedTeammate
+            //     else return el;
+            // })
 
+            this._teammates = this._teammates.reduce((updatedTeam, teammate) => {
+                if (teammate.name === oldTeammate) updatedTeam.push(updatedTeammate)
+                else updatedTeam.push(teammate);
+                return updatedTeam;
+            }, [])
+
+            // const i = this._teammates.findIndex((teammate) => teammate.name === oldTeammate);
+            // if (i !== -1) this._teammates[i] = updatedTeammate;
+        }
+
+        addTask(task) {
+            this._tasks.add(task)
+        }
+
+        removeTask(task) {
+            this._tasks.delete(task)
+        }
+
+        editTask(oldTask, newTask) {
+            if (this._tasks.has(oldTask)) {
+                this._tasks.delete(oldTask);
+                this._tasks.add(newTask);
+            }
+        }
+
+        showAllTeammates() {
+            return this._teammates;
+        }
+
+        showTeammatesBySpecialization(specialization) {
+            return this._teammates.filter((teammate) => teammate.specialization === specialization);
+        }
+
+        showAllTasks() {
+            return Array.from(this._tasks);
         }
 
 
@@ -303,10 +342,20 @@ const log = console.log;
     qa.removeTeammate('Sun');
     log(`Numbers of teammates after removing: ${qa.numberOfTeammates}`);
 
+    qa.editTeammate('Frank', {name: 'Frank', specialization: 'Developer Full stack'})
 
-    log(qa)
 
+    qa.addTask('Implement');
+    qa.addTask('Design');
+    qa.addTask('Optimize');
+    qa.addTask('Grooming');
 
+    qa.removeTask('Implement')
+    qa.editTask('Grooming', 'Planning');
+
+    log(qa.showAllTeammates());
+    log(qa.showTeammatesBySpecialization('Designer'));
+    log(qa.showAllTasks());
+
+    module.exports = Team;
 }
-
-
