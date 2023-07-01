@@ -1,4 +1,4 @@
-class ITSpecialist {
+export class ITSpecialist {
     constructor(name, grade, experience_in_years, age, country, salary) {
         this.name = name;
         this.grade = grade;
@@ -20,5 +20,3 @@ class ITSpecialist {
         return this._salary;
     }
 }
-
-module.exports = ITSpecialist;
