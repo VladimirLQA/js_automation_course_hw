@@ -6,8 +6,10 @@ export class QA extends ITSpecialist {
         this.isAqa = isAqa;
     }
 }
-// const newQA = new QA('Vova', 'Junior', 2, 22, 'Ukraine', 2500, false);
-//
+const newQA = new QA('Vova', 'Junior', 2, 22, 'Ukraine', 2500, false);
+
+console.log(newQA.name())
+
 // const qaInfoDiv = document.getElementById('qaInfo');
 //
 // qaInfoDiv.innerHTML += `

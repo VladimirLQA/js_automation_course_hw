@@ -218,7 +218,7 @@ const log = console.log;
 {
     log(`=========================== #4 =================================`);
 
-    class Team {
+    export class Team {
 
         constructor(name, sprintDuration) {
             this._releaseDate = null;
@@ -357,5 +357,4 @@ const log = console.log;
     log(qa.showTeammatesBySpecialization('Designer'));
     log(qa.showAllTasks());
 
-    module.exports = Team;
 }
