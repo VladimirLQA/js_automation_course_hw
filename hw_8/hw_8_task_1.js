@@ -9,6 +9,7 @@
   в консоль результаты работы каждого промиса*/
 
 {
+        // #1
     const delayTwoSeconds = (clback) => {
         setTimeout(clback, 2000);
     }
@@ -17,22 +18,26 @@
 }
 
 {
+    // #2
     const newPromise = new Promise((resolve, reject) => resolve(1));
         newPromise.then(value => console.log(`Promise success. Obtained value is ${value}`));
 }
 
 {
+    // #3
     const newPromise = new Promise((resolve, reject) => reject(1));
     newPromise.catch(err => console.log(`Promise failed with error - ${err}`));
 }
 
 {
+    // #4
     const promiseNumber = (number) => {
         return new Promise((resolve) => resolve(number));
     }
 
     promiseNumber(5).then(value => console.log(`Resolved promise with number - ${value}`));
 
+    // #5
     Promise.all([promiseNumber(1), promiseNumber(2), promiseNumber(3)])
         .then(value => value.forEach(el => console.log(el)));
 }
