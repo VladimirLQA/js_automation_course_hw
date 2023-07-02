@@ -23,7 +23,28 @@
   Решить с помощью в 2 вариантах: с  .then() и с использованием async/await*/
 
 
-
 {
+    // #1
+    // const resolvePromise = () => new Promise((resolve) => resolve)
 
+
+    const promiseSumOfTwo = (a, b) => {
+        if (isNaN(a) || isNaN(b) || typeof a !== "number" || typeof b !== "number") {
+            return Promise.reject(new Error(`Passed argument not a number`));
+        } else {
+            return Promise.resolve(a + b);
+        }
+    }
+
+    promiseSumOfTwo(1, 2)
+        .then((result => console.log(result)))
+        .catch(error => console.log(error));
+
+    promiseSumOfTwo(1, "2")
+        .then((result => console.log(result)))
+        .catch(error => console.log(error));
+
+    promiseSumOfTwo(1)
+        .then((result => console.log(result)))
+        .catch(error => throw new Error(error));
 }
