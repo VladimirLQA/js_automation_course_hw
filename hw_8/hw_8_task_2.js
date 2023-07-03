@@ -23,87 +23,138 @@
   Решить с помощью в 2 вариантах: с  .then() и с использованием async/await*/
 
 
+// {
+//     // #1
+//     const promiseSumOfTwo = (a, b) => {
+//         if (isNaN(a) || isNaN(b) || typeof a !== "number" || typeof b !== "number") {
+//             return Promise.reject(new Error(`Passed argument not a number`));
+//         } else {
+//             return Promise.resolve(a + b);
+//         }
+//     }
+//
+//     promiseSumOfTwo(1, 2)
+//         .then((result => console.log(result)))
+//         .catch(error => console.log(error));
+//
+//     promiseSumOfTwo(1, "2")
+//         .then((result => console.log(result)))
+//         .catch(error => console.log(error));
+//
+//     promiseSumOfTwo(1)
+//         .then((result => console.log(result)))
+//         .catch(error => console.log(error));
+// }
+//
+// {
+//     // #2
+//     {
+//         const getNumber = () => new Promise((resolve, reject) => {
+//             let randomNumber = Math.floor(Math.random() * 10) + 1;
+//             if (randomNumber > 5) resolve(randomNumber);
+//             else reject(new Error(`Number is less than or equal to 5`));
+//         });
+//
+//         const retryPromise = (fn, maxRetries) => {
+//             return new Promise((resolve, reject) => {
+//                 const retry = (attempt) => {
+//                     fn().then(resolve)
+//                         .catch(error => {
+//                             if (attempt < maxRetries) {
+//                                 console.log(`Retrying ${attempt} time`);
+//                                 setTimeout(() => retry(attempt + 1), 1000);
+//                             } else reject(error);
+//
+//                         });
+//                 };
+//
+//                 console.log("First attempt");
+//                 retry(1);
+//             });
+//         }
+//
+//         retryPromise(getNumber, 5)
+//             .then(result => console.log("Success", result))
+//             .catch(error => console.error(error));
+//     }
+//
+//     {
+//         const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+//
+//         const getNumber = () => new Promise((resolve, reject) => {
+//                 const randomValue = Math.floor(Math.random() * 10) + 1;
+//                 if (randomValue > 5) resolve(randomValue);
+//                 else reject(new Error("Number is less than or equal to 5"));
+//             });
+//
+//         const retryPromise = async (callback, maxRetries) => {
+//             let retries = 0;
+//             while (retries < maxRetries) {
+//                 try {
+//                     return await callback();
+//                 } catch (error) {
+//                     retries++;
+//                     console.log(`Retrying ${retries} time`);
+//                     await delay(1000);
+//                 }
+//             }
+//             throw new Error("Max retries reached");
+//         }
+//
+//         console.log("First attempt");
+//         retryPromise(getNumber, 5)
+//             .then(result => console.log("Success", result))
+//             .catch(error => console.error(error));
+//     }
+// }
+
 {
-    // #1
-    const promiseSumOfTwo = (a, b) => {
-        if (isNaN(a) || isNaN(b) || typeof a !== "number" || typeof b !== "number") {
-            return Promise.reject(new Error(`Passed argument not a number`));
-        } else {
-            return Promise.resolve(a + b);
+    // #3
+    const URLs = {
+        baseURL: `http://api.exchangeratesapi.io/v1`,
+        latest: (access_key) => `/latest?access_key=${access_key}&format=1`,
+    }
+    const API_KEY = `49a588adc842cac657b8f00277fabd4e`;
+
+    {
+        function currencyConverter(access_key, fromCurrency, toCurrency, amount) {
+            let convertedCurrency = 0;
+            fetch(`${URLs.baseURL}${URLs.latest(access_key)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.rates[toCurrency]) {
+                        convertedCurrency = amount * data.rates[toCurrency];
+                        console.log(`${convertedCurrency.toFixed(1)} ${toCurrency}`);
+                    } else {
+                        console.log(`Invalid currency code - ${toCurrency}`);
+                    }
+                }).catch(error => console.log(`Error`, error));
         }
+
+        currencyConverter(API_KEY, `USD`, `EUR`, 40);
+        currencyConverter(API_KEY, `USD`, `ZAR`, 40);
+        currencyConverter(API_KEY, `USD`, `TWD`, 40);
     }
 
-    promiseSumOfTwo(1, 2)
-        .then((result => console.log(result)))
-        .catch(error => console.log(error));
-
-    promiseSumOfTwo(1, "2")
-        .then((result => console.log(result)))
-        .catch(error => console.log(error));
-
-    promiseSumOfTwo(1)
-        .then((result => console.log(result)))
-        .catch(error => console.log(error));
-}
-
-{
-    // #2
     {
-        const getNumber = () => new Promise((resolve, reject) => {
-            let randomNumber = Math.floor(Math.random() * 10) + 1;
-            if (randomNumber > 5) resolve(randomNumber);
-            else reject(new Error(`Number is less than or equal to 5`));
-        });
-
-        const retryPromise = (fn, maxRetries) => {
-            return new Promise((resolve, reject) => {
-                const retry = (attempt) => {
-                    fn().then(resolve)
-                        .catch(error => {
-                            if (attempt < maxRetries) {
-                                console.log(`Retrying ${attempt} time`);
-                                setTimeout(() => retry(attempt + 1), 1000);
-                            } else reject(error);
-
-                        });
-                };
-
-                console.log("First attempt");
-                retry(1);
-            });
-        }
-
-        retryPromise(getNumber, 5)
-            .then(result => console.log("Success", result))
-            .catch(error => console.error(error));
-    }
-
-    {
-        const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-        const getNumber = () => new Promise((resolve, reject) => {
-                const randomValue = Math.floor(Math.random() * 10) + 1;
-                if (randomValue > 5) resolve(randomValue);
-                else reject(new Error("Number is less than or equal to 5"));
-            });
-
-        const retryPromise = async (callback, maxRetries) => {
-            let retries = 0;
-            while (retries < maxRetries) {
-                try {
-                    return await callback();
-                } catch (error) {
-                    retries++;
-                    console.log(`Retrying ${retries} time`);
-                    await delay(1000);
+        async function currencyConverter(access_key, fromCurrency, toCurrency, amount) {
+            let convertedCurrency = 0;
+            try {
+                const response = await fetch(`${URLs.baseURL}${URLs.latest(access_key)}`)
+                const data = await response.json()
+                if (data.rates[toCurrency]) {
+                    convertedCurrency = amount * data.rates[toCurrency]
+                    console.log(`${convertedCurrency.toFixed(1)} ${toCurrency}`)
+                }  else {
+                    console.log(`Invalid currency code - ${toCurrency}`);
                 }
+            } catch (error) {
+                console.log(`Error:`, error)
             }
-            throw new Error("Max retries reached");
         }
 
-        console.log("First attempt");
-        retryPromise(getNumber, 5)
-            .then(result => console.log("Success", result))
-            .catch(error => console.error(error));
+        currencyConverter(API_KEY, `USD`, `RS`, 40);
+        currencyConverter(API_KEY, `USD`, `IRR`, 40);
+        currencyConverter(API_KEY, `USD`, `AOA`, 40);
     }
 }
