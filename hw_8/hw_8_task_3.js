@@ -128,4 +128,32 @@
 
         showData();
     }
+
+    {
+        async function showData() {
+            try {
+                const users = await getUsers();
+                for (const user of users) {
+                    console.log(`name: ${user.name}`);
+                    console.log(`email: ${user.email}`);
+                    console.log(`phone: ${user.phone}`);
+                    console.log(`company: ${user.company.name}`);
+
+                    const albums = await getALbums(user.id);
+
+
+                    console.log('albums:');
+                    for (const album of albums) {
+                        const photos = await getPhotoInAlbums(album.id);
+                        console.log(`${album.title} (${photos.length} photos)`);
+                    }
+                    console.log(`<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>`);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        showData();
+    }
 }
