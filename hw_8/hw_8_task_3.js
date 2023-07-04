@@ -45,7 +45,7 @@
 
         const myFn = () => console.log(`${new Date().getMinutes()}:${new Date().getSeconds()}`);
         const throttledFunction = throttle(myFn, 3000);
-        setInterval(throttledFunction, 1000);
+        // setInterval(throttledFunction, 1000);
     }
 
     {
@@ -62,6 +62,70 @@
 
         const myFn = () => console.log(`${new Date().getMinutes()}:${new Date().getSeconds()}`);
         const throttledFunction = throttle(myFn, 3000);
-        setInterval(throttledFunction, 1000);
+        // setInterval(throttledFunction, 1000);
+    }
+}
+
+{
+    // #2
+    const URLs = {
+        baseUrl: `https://jsonplaceholder.typicode.com`,
+        getUsers: `/users`,
+        getALbums: (userID) => `/users/${userID}/albums`,
+        getPhotoInAlbums: (userID) =>`/albums/${userID}/photos`,
+    }
+
+    async function getUsers() {
+        let data = await fetch(`${URLs.baseUrl}${URLs.getUsers}`).then(response => response.json());
+        return data;
+    }
+
+    async function getALbums(userID) {
+        let listOfAlbums = await fetch(`${URLs.baseUrl}${URLs.getALbums(userID)}`).then(response => response.json());
+        return listOfAlbums;
+    }
+
+    async function getPhotoInAlbums(userID) {
+        let listOfPhotos = await fetch(`${URLs.baseUrl}${URLs.getPhotoInAlbums(userID)}`).then(response => response.json());
+        return listOfPhotos;
+    }
+
+    {
+        async function showData() {
+            try {
+                const users = await getUsers();
+
+                const promises = users.map(user => {
+                    return getALbums(user.id).then(albums => {
+                        return Promise.all(albums.map(album => getPhotoInAlbums(album.id)));
+                    });
+                });
+
+                const albumsAndPhotos = await Promise.all(promises);
+                // console.log(albumsAndPhotos[0])
+
+                for (let i = 0; i < users.length; i++) {
+                    const user = users[i];
+                    console.log(`User ID: ${user.id}`);
+                    console.log(`name: ${user.name}`);
+                    console.log(`email: ${user.email}`);
+                    console.log(`phone: ${user.phone}`);
+                    console.log(`company: ${user.company.name}`);
+
+
+                    console.log('albums:');
+                    const albums = albumsAndPhotos[i];
+                    for (const album of albums) {
+                        console.log(`${album[0].title} (${album.length} photos)`);
+                    }
+                    console.log(`<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>`);
+                }
+
+            } catch (err) {
+                console.log(`Error: ${err}`);
+            }
+        }
+
+        showData();
     }
 }
