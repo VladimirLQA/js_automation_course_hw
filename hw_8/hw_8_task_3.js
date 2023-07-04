@@ -34,27 +34,18 @@
         const throttle = (fn, delay) => {
             let isThrottle = false;
 
-            return function(...args) {
+            return (...args) => {
                 if (!isThrottle) {
                     fn.apply(this, args);
                     isThrottle = true;
-
                     setTimeout(() => isThrottle = false, delay);
                 }
             }
         }
 
-        // const myFn = () => console.log(`My function called`);
-        //
-        // const throttledFunction = throttle(myFn, 500);
-        //
-        // throttledFunction();
-        // throttledFunction();
-        // throttledFunction();
-        // throttledFunction();
-        // throttledFunction();
-        // throttledFunction();
-
+        const myFn = () => console.log(`${new Date().getMinutes()}:${new Date().getSeconds()}`);
+        const throttledFunction = throttle(myFn, 3000);
+        setInterval(throttledFunction, 1000);
     }
 
     {
@@ -64,15 +55,13 @@
                 const now = Date.now();
                 if (now - lastTime < delay) return;
                 lastTime = now;
+                // fn.apply(null, args);
                 fn(...args);
             };
         };
 
-        const myFn = () => console.log(`My function called`);
-
-        const throttledFunction = throttle(myFn, 100);
-
-        throttledFunction();
-        throttledFunction();
+        const myFn = () => console.log(`${new Date().getMinutes()}:${new Date().getSeconds()}`);
+        const throttledFunction = throttle(myFn, 3000);
+        setInterval(throttledFunction, 1000);
     }
 }
