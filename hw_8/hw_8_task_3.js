@@ -64,6 +64,10 @@
         const throttledFunction = throttle(myFn, 3000);
         // setInterval(throttledFunction, 1000);
     }
+    // TODO: add one more solution
+    {
+
+    }
 }
 
 {
