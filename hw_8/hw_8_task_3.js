@@ -80,18 +80,36 @@
     }
 
     async function getUsers() {
-        let data = await fetch(`${URLs.baseUrl}${URLs.getUsers}`).then(response => response.json());
-        return data;
+        try {
+            const response = await fetch(`${URLs.baseUrl}${URLs.getUsers}`);
+            const users = await response.json();
+            return users;
+        } catch (error) {
+            console.log(`Error while getting users: ${error}`);
+        }
     }
 
     async function getALbums(userID) {
-        let listOfAlbums = await fetch(`${URLs.baseUrl}${URLs.getALbums(userID)}`).then(response => response.json());
-        return listOfAlbums;
+
+        try {
+            const response = await fetch(`${URLs.baseUrl}${URLs.getALbums(userID)}`);
+            const listOfAlbums = await response.json();
+            return listOfAlbums;
+        } catch (error) {
+            console.log(`Error while getting list of albums: ${error}`);
+        }
+
     }
 
     async function getPhotoInAlbums(userID) {
-        let listOfPhotos = await fetch(`${URLs.baseUrl}${URLs.getPhotoInAlbums(userID)}`).then(response => response.json());
-        return listOfPhotos;
+
+        try {
+            const response = await fetch(`${URLs.baseUrl}${URLs.getPhotoInAlbums(userID)}`);
+            const listOfPhotos = await response.json();
+            return listOfPhotos;
+        } catch (error) {
+            console.log(`Error while getting list of photos in albums: ${error}`);
+        }
     }
 
     {
@@ -125,8 +143,8 @@
                     console.log(`<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>`);
                 }
 
-            } catch (err) {
-                console.log(`Error: ${err}`);
+            } catch (error) {
+                console.log(`Error occurred while getting structured data: ${error}`);
             }
         }
 
@@ -138,13 +156,13 @@
             try {
                 const users = await getUsers();
                 for (const user of users) {
+                    console.log(`User ID: ${user.id}`);
                     console.log(`name: ${user.name}`);
                     console.log(`email: ${user.email}`);
                     console.log(`phone: ${user.phone}`);
                     console.log(`company: ${user.company.name}`);
 
                     const albums = await getALbums(user.id);
-
 
                     console.log('albums:');
                     for (const album of albums) {
@@ -154,7 +172,7 @@
                     console.log(`<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>`);
                 }
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error(`Error occurred while getting structured data: ${error}`);
             }
         }
 
