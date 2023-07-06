@@ -154,6 +154,9 @@
     {
         async function showData() {
             try {
+
+               // const [users, albums, photos] = await Promise.all([getUsers(), getALbums(), getPhotoInAlbums()])
+
                 const users = await getUsers();
                 for (const user of users) {
                     console.log(`User ID: ${user.id}`);
@@ -164,7 +167,14 @@
 
                     const albums = await getALbums(user.id);
 
+                    // const userAlbums = albums.filter(album => album.userId === users.id);
                     console.log('albums:');
+
+                    // for (const album of userAlbums) {
+                    //     const albumPhotos = photos.filter(photo => photo.albumId === album.id);
+                    //     console.log(`${album.title} (${albumPhotos.length} photos)`);
+                    // }
+
                     for (const album of albums) {
                         const photos = await getPhotoInAlbums(album.id);
                         console.log(`${album.title} (${photos.length} photos)`);
