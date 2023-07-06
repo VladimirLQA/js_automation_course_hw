@@ -100,8 +100,6 @@ const log = console.log;
     }
 
     log(getAnObject(testArray))
-
-
 }
 
 {
