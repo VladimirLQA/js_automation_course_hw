@@ -84,22 +84,38 @@ const log = console.log;
     const testArray: customObject[] = [
         {key1: 'string', key2: true, key3: 3},
         {key4: 'string 2 ', key5: false, key6: 6.1},
+        {key7: 'string 3 ', key8: false, key9: 10},
     ]
 
     const getAnObject = (arrOfObjects: customObject[]): customObject => {
-        // const reversedKeysInObjects =  arrOfObjects.map(obj => {
-        //     return Object.keys(obj).reduce((reversedObj: customObject, key: string) => {
-        //         reversedObj[key] = obj[key];
-        //         return reversedObj;
-        //     }, {})
-        // });
+        const reversedKeysInObjects = arrOfObjects.map(obj => {
+            return Object.keys(obj).reverse().reduce((reversedObj: customObject, key: string) => {
+                reversedObj[key] = obj[key];
+                return reversedObj;
+            }, {})
+        });
 
-        return arrOfObjects.reduce((result, obj) => {
+        return reversedKeysInObjects.reduce((result, obj) => {
             return { ...obj, ...result};
         }, {});
     }
 
     log(getAnObject(testArray))
+
+    // {
+    //     const getAnObject = (arrOfObjects: customObject[]): customObject[] => {
+    //         const reversedKeysInObjects = arrOfObjects.map(obj => {
+    //             const reversedObj: customObject = {};
+    //             Object.keys(obj).reverse().forEach(key => {
+    //                 reversedObj[key] = obj[key];
+    //             });
+    //             return reversedObj;
+    //         });
+    //         return reversedKeysInObjects;
+    //     }
+    //
+    //     log(getAnObject(testArray));
+    // }
 }
 
 {
