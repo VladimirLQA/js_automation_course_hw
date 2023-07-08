@@ -103,7 +103,7 @@ const log = console.log;
     log(getAnObject(testArray))
 
     // {
-    //     const getAnObject = (arrOfObjects: customObject[]): customObject[] => {
+    //     const reverseObjKeysOrder = (arrOfObjects: customObject[]): customObject[] => {
     //         const reversedKeysInObjects = arrOfObjects.map(obj => {
     //             const reversedObj: customObject = {};
     //             Object.keys(obj).reverse().forEach(key => {
@@ -120,6 +120,94 @@ const log = console.log;
 
 {
     log(`============================ Task 2 ====================================`);
+
+    interface IAddress {
+        city: string;
+        street: string;
+        house: number;
+        flat?: number;
+    }
+
+    interface ICustomer {
+        name: string;
+        surname: string;
+        address: IAddress;
+
+    }
+
+    enum Sauces {
+        BBQ = `BBQ`,
+        CHEESE = `cheese`,
+        KETCHUP = `ketchup`,
+        GARLIC = `garlic`,
+    }
+
+    enum Pizzas {
+        MARGHERITA = "Margherita",
+        PEPPERONI = "Pepperoni",
+        SUPREME = "Supreme",
+        VEGGIE = "Veggie"
+    }
+
+    enum PizzaSize {
+        LARGE = `LARGE`,
+        SMALL = `SMALL`,
+        MEDIUM = `MEDIUM`,
+    }
+
+    enum Extras {
+        MOZZARELLA = `mozzarella`,
+        BACON = `bacon`,
+        ONION = `onion`,
+        BEEF_MINCE = `beef mince`,
+        CAPSICUM = `capsicum`,
+        PEPPERONI = `pepperoni`,
+        OLIVES = `olives`,
+        MUSHROOM = `mushroom`,
+        HAM = `ham`,
+        PINEAPPLE = `pineapple`,
+    }
+    interface IPizza {
+        name: Pizzas;
+        size: PizzaSize;
+        extras: Extras[];
+        cost: number;
+
+    }
+
+    interface IOrdered {
+        pizzas: IPizza[];
+        sauces?: Sauces[];
+    }
+
+    enum DeliveryCondition {
+        ORDERED = "Ordered",
+        IN_PROGRESS = "In Progress",
+        OUT_FOR_DELIVERY = "Out for Delivery",
+        DELIVERED = "Delivered",
+        CANCELED = "Canceled"
+    }
+
+    interface IDelivery {
+        condition: DeliveryCondition;
+        address: IAddress;
+        date: Date;
+        time: string;
+    }
+
+    enum PaymentCondition {
+        CARD = `card`,
+        CASH = `cash`
+    }
+
+    interface IOrder {
+        customer: ICustomer;
+        ordered: IOrdered;
+        delivery: IDelivery;
+        paymentCondition: PaymentCondition;
+        isPaid: boolean;
+        totalPrice: number;
+    }
 }
 
 {
