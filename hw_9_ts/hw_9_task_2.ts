@@ -212,6 +212,18 @@ const log = console.log;
 
 {
     log(`============================ Task 3 ====================================`);
+    type ResultObject = {[key: string]: number};
+
+    const testString: string = `I am the best AQA ever!`;
+
+    const counter = (string: string): ResultObject => {
+        return [...string.toLowerCase()].reduce((r: ResultObject, k) => {
+            r[k] = (r[k] || 0) + 1;
+            return r;
+        }, {});
+    }
+
+    log(counter(testString));
 }
 
 {
