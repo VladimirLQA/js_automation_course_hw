@@ -83,6 +83,15 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 // @ts-ignore
 var log = console.log;
 {
@@ -90,26 +99,108 @@ var log = console.log;
     var testArray = [
         { key1: 'string', key2: true, key3: 3 },
         { key4: 'string 2 ', key5: false, key6: 6.1 },
+        { key7: 'string 3 ', key8: false, key9: 10 },
     ];
     var getAnObject = function (arrOfObjects) {
-        // const reversedKeysInObjects =  arrOfObjects.map(obj => {
-        //     return Object.keys(obj).reduce((reversedObj: customObject, key: string) => {
-        //         reversedObj[key] = obj[key];
-        //         return reversedObj;
-        //     }, {})
-        // });
-        return arrOfObjects.reduce(function (result, obj) {
+        var reversedKeysInObjects = arrOfObjects.map(function (obj) {
+            return Object.keys(obj).reverse().reduce(function (reversedObj, key) {
+                reversedObj[key] = obj[key];
+                return reversedObj;
+            }, {});
+        });
+        return reversedKeysInObjects.reduce(function (result, obj) {
             return __assign(__assign({}, obj), result);
         }, {});
     };
     log(getAnObject(testArray));
+    // {
+    //     const reverseObjKeysOrder = (arrOfObjects: customObject[]): customObject[] => {
+    //         const reversedKeysInObjects = arrOfObjects.map(obj => {
+    //             const reversedObj: customObject = {};
+    //             Object.keys(obj).reverse().forEach(key => {
+    //                 reversedObj[key] = obj[key];
+    //             });
+    //             return reversedObj;
+    //         });
+    //         return reversedKeysInObjects;
+    //     }
+    //
+    //     log(getAnObject(testArray));
+    // }
 }
 {
     log("============================ Task 2 ====================================");
+    var Sauces = void 0;
+    (function (Sauces) {
+        Sauces["BBQ"] = "BBQ";
+        Sauces["CHEESE"] = "cheese";
+        Sauces["KETCHUP"] = "ketchup";
+        Sauces["GARLIC"] = "garlic";
+    })(Sauces || (Sauces = {}));
+    var Pizzas = void 0;
+    (function (Pizzas) {
+        Pizzas["MARGHERITA"] = "Margherita";
+        Pizzas["PEPPERONI"] = "Pepperoni";
+        Pizzas["SUPREME"] = "Supreme";
+        Pizzas["VEGGIE"] = "Veggie";
+    })(Pizzas || (Pizzas = {}));
+    var PizzaSize = void 0;
+    (function (PizzaSize) {
+        PizzaSize["LARGE"] = "LARGE";
+        PizzaSize["SMALL"] = "SMALL";
+        PizzaSize["MEDIUM"] = "MEDIUM";
+    })(PizzaSize || (PizzaSize = {}));
+    var Extras = void 0;
+    (function (Extras) {
+        Extras["MOZZARELLA"] = "mozzarella";
+        Extras["BACON"] = "bacon";
+        Extras["ONION"] = "onion";
+        Extras["BEEF_MINCE"] = "beef mince";
+        Extras["CAPSICUM"] = "capsicum";
+        Extras["PEPPERONI"] = "pepperoni";
+        Extras["OLIVES"] = "olives";
+        Extras["MUSHROOM"] = "mushroom";
+        Extras["HAM"] = "ham";
+        Extras["PINEAPPLE"] = "pineapple";
+    })(Extras || (Extras = {}));
+    var DeliveryCondition = void 0;
+    (function (DeliveryCondition) {
+        DeliveryCondition["ORDERED"] = "Ordered";
+        DeliveryCondition["IN_PROGRESS"] = "In Progress";
+        DeliveryCondition["OUT_FOR_DELIVERY"] = "Out for Delivery";
+        DeliveryCondition["DELIVERED"] = "Delivered";
+        DeliveryCondition["CANCELED"] = "Canceled";
+    })(DeliveryCondition || (DeliveryCondition = {}));
+    var PaymentCondition = void 0;
+    (function (PaymentCondition) {
+        PaymentCondition["CARD"] = "card";
+        PaymentCondition["CASH"] = "cash";
+    })(PaymentCondition || (PaymentCondition = {}));
 }
 {
     log("============================ Task 3 ====================================");
+    var testString = "I am the best AQA ever!";
+    var counter = function (string) {
+        return __spreadArray([], string.toLowerCase().split(''), true).reduce(function (r, k) {
+            r[k] = (r[k] || 0) + 1;
+            return r;
+        }, {});
+    };
+    log(counter(testString));
 }
 {
     log("============================ Task 4 ====================================");
+    var numbers = [1, -5, 2, 3, 4, 133];
+    var filterFunc = function (array, callback) {
+        var resultArray = [];
+        for (var i = 0; i < array.length; i++) {
+            if (callback(array[i], i, array)) {
+                resultArray.push(array[i]);
+            }
+        }
+        return resultArray;
+    };
+    log(filterFunc(numbers, function (n) { return n > 3; })); // [4, 133]
+    log(filterFunc(numbers, function (n) { return n % 2 == 0; })); // [2, 4]
+    log(filterFunc(numbers, function (n) { return n < -5; })); // []
 }

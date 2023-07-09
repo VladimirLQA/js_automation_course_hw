@@ -218,7 +218,7 @@ const log = console.log;
     const testString: string = `I am the best AQA ever!`;
 
     const counter = (string: string): ResultObject => {
-        return [...string.toLowerCase()].reduce((r: ResultObject, k) => {
+        return [...string.toLowerCase().split('')].reduce((r: ResultObject, k) => {
             r[k] = (r[k] || 0) + 1;
             return r;
         }, {});
