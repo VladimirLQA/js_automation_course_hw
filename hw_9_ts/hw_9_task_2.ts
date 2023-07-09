@@ -96,7 +96,7 @@ const log = console.log;
         });
 
         return reversedKeysInObjects.reduce((result, obj) => {
-            return { ...obj, ...result};
+            return {...obj, ...result};
         }, {});
     }
 
@@ -167,6 +167,7 @@ const log = console.log;
         HAM = `ham`,
         PINEAPPLE = `pineapple`,
     }
+
     interface IPizza {
         name: Pizzas;
         size: PizzaSize;
@@ -212,7 +213,7 @@ const log = console.log;
 
 {
     log(`============================ Task 3 ====================================`);
-    type ResultObject = {[key: string]: number};
+    type ResultObject = { [key: string]: number };
 
     const testString: string = `I am the best AQA ever!`;
 
@@ -228,4 +229,25 @@ const log = console.log;
 
 {
     log(`============================ Task 4 ====================================`);
+
+    type Callback = (element: number, index: number, array: number[]) => boolean;
+    type FilterFunc = (array: number[], callback: Callback) => number[] | [];
+
+    const numbers = [1, -5, 2, 3, 4, 133];
+
+    const filterFunc: FilterFunc = (array, callback) => {
+        const resultArray: number[] = [];
+
+        for (let i = 0; i < array.length; i++) {
+            if (callback(array[i], i, array)) {
+                resultArray.push(array[i]);
+            }
+        }
+        return resultArray;
+    }
+
+    log(filterFunc(numbers, (n) => n > 3)); // [4, 133]
+    log(filterFunc(numbers, (n) => n % 2 == 0)); // [2, 4]
+    log(filterFunc(numbers, (n) => n < -5)); // []
+
 }
