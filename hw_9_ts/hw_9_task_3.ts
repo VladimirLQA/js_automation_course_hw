@@ -152,7 +152,7 @@
         for (let rule of rules) {
             Object.keys(formData).forEach(field => {
                 if(rule.fieldName === field) {
-                    resultValidation = {...resultValidation, ...{[field]: rule.validate(formData[field])}}
+                    resultValidation = {...resultValidation, ...{[field]: rule.validate(formData[field])}};
                 }
             })
         }
