@@ -101,9 +101,48 @@
 
     console.log(countValueType(testObject));
     console.log(countValueType(testArray));
-
 }
 
+{
+    console.log(`<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Task 2 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`);
+    type ValidationRule = {fieldName?: FormDataKeys; validate: (value: any) => boolean;};
+    type FormDataKeys = keyof IFormData;
+    type ResultAfterValidation = {[key in FormDataKeys]: boolean};
+    type ValidateForm = (rules: ValidationRule, formDate: IFormData) => ResultAfterValidation;
+
+    interface IFormData {
+        name: string;
+        surname: string;
+        email: string;
+        phone: number;
+        age: number;
+        username: string;
+        password: string;
+    }
+
+    const rules: ValidationRule[] = [
+        {
+            fieldName: "username",
+            validate: (value) => value && value.length >= 3,
+        },
+        {
+            fieldName: "password",
+            validate: (value) => value && value.length >= 8,
+        }
+    ];
+
+    const formData: Partial<IFormData> = {
+        username: "john",
+        password: "secretpass",
+    };
+
+    // const validateForm: ValidateForm  = (rules, formData): ResultAfterValidation => {
+    //
+    // }
+
+    // const validationStatus = validateForm(rules, formData);
+    // console.log(validationStatus); // { username: true, password: true }
+}
 
 
 

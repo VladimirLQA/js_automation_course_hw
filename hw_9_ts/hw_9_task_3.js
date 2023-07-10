@@ -93,3 +93,46 @@
     console.log(countValueType(testObject));
     console.log(countValueType(testArray));
 }
+{
+    console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Task 2 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    var rules = [
+        {
+            fieldName: "username",
+            validate: function (value) { return value && value.length >= 3; },
+        },
+        {
+            fieldName: "password",
+            validate: function (value) { return value && value.length >= 8; },
+        }
+    ];
+    var formData = {
+        username: "john",
+        password: "secretpass",
+    };
+    // const validateForm: ValidateForm  = (rules, formData): ResultAfterValidation => {
+    //
+    // }
+    // const validationStatus = validateForm(rules, formData);
+    // console.log(validationStatus); // { username: true, password: true }
+}
+{
+    var objects = [
+        { key1: 1, key2: '2', key3: true },
+        { key3: 34523, key4: '342343', key5: false },
+        { key6: 452345, key7: 'dfgsdfgsd', key8: true, key9: 'were' },
+    ];
+    function findMaxKeysValue(arr) {
+        if (arr.length === 0)
+            throw new Error('Массив пуст');
+        var resultObject = arr[0];
+        for (var i = 1; i < arr.length; i++) {
+            var currentObjectKeysCount = Object.entries(arr[i]).length;
+            var resultObjectKeysCount = Object.entries(resultObject).length;
+            if (currentObjectKeysCount > resultObjectKeysCount) {
+                resultObject = arr[i];
+            }
+        }
+        return resultObject;
+    }
+    console.log(findMaxKeysValue(objects));
+}
