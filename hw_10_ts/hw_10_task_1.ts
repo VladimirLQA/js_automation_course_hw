@@ -38,7 +38,16 @@ const objects: CustomObject[] = [
 
     console.log(findMaxKeysValue(objects))
 }
-
+    console.log(`<<<<<<<<<<<<<<<<<<<<<<<<<<<< reduce >>>>>>>>>>>>>>>>>>>>>>>>>>>>`);
 {
+    const findMaxKeysValue = <T extends CustomObject>(arr: T[]): T => {
+        if (arr.length === 0) throw new Error('Empty array');
 
+        return arr.reduce((result, obj) => {
+            if(Object.entries(obj).length > Object.entries(result).length) result = obj;
+            return result;
+        });
+    }
+
+    console.log(findMaxKeysValue(objects));
 }
