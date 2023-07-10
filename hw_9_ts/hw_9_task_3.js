@@ -39,6 +39,17 @@
 
     const validationStatus = validateForm(rules, formData);
     На выходе: { username: true, password: true }*/
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 {
     console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Task 1 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     var testObject = {
@@ -103,36 +114,38 @@
         {
             fieldName: "password",
             validate: function (value) { return value && value.length >= 8; },
-        }
+        },
+        {
+            fieldName: "email",
+            validate: function (value) { return value && value.length >= 5 && value.includes('@'); },
+        },
+        {
+            fieldName: "phone",
+            validate: function (value) { return value && String(value).length >= 8; },
+        },
     ];
     var formData = {
         username: "john",
         password: "secretpass",
+        email: "vooooooooo@gmail.com",
+        phone: 88005553535,
     };
-    // const validateForm: ValidateForm  = (rules, formData): ResultAfterValidation => {
-    //
-    // }
-    // const validationStatus = validateForm(rules, formData);
-    // console.log(validationStatus); // { username: true, password: true }
-}
-{
-    var objects = [
-        { key1: 1, key2: '2', key3: true },
-        { key3: 34523, key4: '342343', key5: false },
-        { key6: 452345, key7: 'dfgsdfgsd', key8: true, key9: 'were' },
-    ];
-    function findMaxKeysValue(arr) {
-        if (arr.length === 0)
-            throw new Error('Массив пуст');
-        var resultObject = arr[0];
-        for (var i = 1; i < arr.length; i++) {
-            var currentObjectKeysCount = Object.entries(arr[i]).length;
-            var resultObjectKeysCount = Object.entries(resultObject).length;
-            if (currentObjectKeysCount > resultObjectKeysCount) {
-                resultObject = arr[i];
-            }
+    var validateForm = function (rules, formData) {
+        var resultValidation = {};
+        var _loop_1 = function (rule) {
+            Object.keys(formData).forEach(function (field) {
+                var _a;
+                if (rule.fieldName === field) {
+                    resultValidation = __assign(__assign({}, resultValidation), (_a = {}, _a[field] = rule.validate(formData[field]), _a));
+                }
+            });
+        };
+        for (var _i = 0, rules_1 = rules; _i < rules_1.length; _i++) {
+            var rule = rules_1[_i];
+            _loop_1(rule);
         }
-        return resultObject;
-    }
-    console.log(findMaxKeysValue(objects));
+        return resultValidation;
+    };
+    var validationStatus = validateForm(rules, formData);
+    console.log(validationStatus); // { username: true, password: true }
 }

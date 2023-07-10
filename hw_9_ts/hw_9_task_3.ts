@@ -88,7 +88,7 @@
             number: 0,
         };
 
-        if(Array.isArray(data)) {
+        if (Array.isArray(data)) {
             for (const object of data) {
                 countValuesInObject(object, result);
             }
@@ -105,19 +105,19 @@
 
 {
     console.log(`<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Task 2 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`);
-    type ValidationRule = {fieldName?: FormDataKeys; validate: (value: any) => boolean;};
+    type ValidationRule = { fieldName?: FormDataKeys, validate: (value: any) => boolean, };
     type FormDataKeys = keyof IFormData;
-    type ResultAfterValidation = {[key in FormDataKeys]: boolean};
-    type ValidateForm = (rules: ValidationRule, formDate: IFormData) => ResultAfterValidation;
+    type ResultAfterValidation = { [key in FormDataKeys]?: boolean };
+    type ValidateForm = (rules: ValidationRule[], formDate: IFormData) => ResultAfterValidation;
 
     interface IFormData {
-        name: string;
-        surname: string;
-        email: string;
-        phone: number;
-        age: number;
-        username: string;
-        password: string;
+        name?: string;
+        surname?: string;
+        email?: string;
+        phone?: number;
+        age?: number;
+        username?: string;
+        password?: string;
     }
 
     const rules: ValidationRule[] = [
@@ -128,20 +128,39 @@
         {
             fieldName: "password",
             validate: (value) => value && value.length >= 8,
-        }
+        },
+        {
+            fieldName: "email",
+            validate: (value) => value && value.length >= 5 && value.includes('@'),
+        },
+        {
+            fieldName: "phone",
+            validate: (value) => value && String(value).length >= 8,
+        },
     ];
 
     const formData: Partial<IFormData> = {
         username: "john",
         password: "secretpass",
+        email: "vooooooooo@gmail.com",
+        phone: 88005553535,
     };
 
-    // const validateForm: ValidateForm  = (rules, formData): ResultAfterValidation => {
-    //
-    // }
+    const validateForm: ValidateForm = (rules, formData): ResultAfterValidation => {
+        let resultValidation: ResultAfterValidation = {};
 
-    // const validationStatus = validateForm(rules, formData);
-    // console.log(validationStatus); // { username: true, password: true }
+        for (let rule of rules) {
+            Object.keys(formData).forEach(field => {
+                if(rule.fieldName === field) {
+                    resultValidation = {...resultValidation, ...{[field]: rule.validate(formData[field])}}
+                }
+            })
+        }
+        return resultValidation;
+    }
+
+    const validationStatus = validateForm(rules, formData);
+    console.log(validationStatus); // { username: true, password: true }
 }
 
 
