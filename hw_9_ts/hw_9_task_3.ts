@@ -105,9 +105,9 @@
 
 {
     console.log(`<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Task 2 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`);
-    type ValidationRule = { fieldName?: FormDataKeys, validate: (value: any) => boolean, };
+    type ValidationRule = { fieldName: FormDataKeys, validate: (value: any) => boolean, };
     type FormDataKeys = keyof IFormData;
-    type ResultAfterValidation = { [key in FormDataKeys]?: boolean };
+    type ResultAfterValidation = { [key in FormDataKeys]+?: boolean };
     type ValidateForm = (rules: ValidationRule[], formDate: IFormData) => ResultAfterValidation;
 
     interface IFormData {
@@ -135,7 +135,7 @@
         },
         {
             fieldName: "phone",
-            validate: (value) => value && String(value).length >= 8,
+            validate: (value) => value && String(value).length <= 12,
         },
     ];
 
@@ -143,7 +143,7 @@
         username: "john",
         password: "secretpass",
         email: "vooooooooo@gmail.com",
-        phone: 88005553535,
+        phone: 8800553535,
     };
 
     const validateForm: ValidateForm = (rules, formData): ResultAfterValidation => {
@@ -157,10 +157,10 @@
             })
         }
         return resultValidation;
-    }
+    };
 
     const validationStatus = validateForm(rules, formData);
-    console.log(validationStatus); // { username: true, password: true }
+    console.log(validationStatus); // { username: true, password: true, ........}
 }
 
 
