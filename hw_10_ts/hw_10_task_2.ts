@@ -33,22 +33,40 @@ const log = console.log;
     log(`<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Task 1 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`);
     type TestArray<T> = T[];
 
-    const testArrayOfNumbers: TestArray<number> = [1, 2, 3, 4, 5];
-    const testArrayOfStrings: TestArray<string> = ['New', 'test', 'for', 'today'];
+    const testArrayOfNumbers: TestArray<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const testArrayOfStrings: TestArray<string> = ['New', 'tesT', 'fOR', 'toDay'];
 
-    type CallBack<T> = (element: T, index?: number, array?: T[]) => void;
-    const callBackNumber: CallBack<number> = (el, i, array) => log(el);
-    const callBackString: CallBack<string> = (el, i, array) => log(el);
+    {
+        // .forEach method
+        type CallBack<T> = (element: T, index: number, array: T[]) => void;
+        const callBackString: CallBack<string> = (el, i, array) => log(el.slice(1));
 
-    const forEach = <T>(arr: T[], callback: CallBack<T>) => {
-        for (let i = 0; i < arr.length; i++) {
-            callback(arr[i], i, arr);
+        const forEach = <T>(arr: T[], callback: CallBack<T>) => {
+            for (let i = 0; i < arr.length; i++) {
+                callback(arr[i], i, arr);
+            }
         }
+
+        forEach(testArrayOfStrings, callBackString);
     }
+        log(`----------------------------------------------`);
+    {
+        // .map method
+        type CallBack<T> = (element: T, index: number, array: T[]) => T;
+        const callBackNumber: CallBack<number> = (el, i, array) => el * i;
+        // const callBackString: CallBack<string> = (el, i, array) => el.toLowerCase();
 
-    forEach(testArrayOfNumbers, callBackNumber);
-    forEach(testArrayOfStrings, callBackString);
+        const map = <T>(arr: T[], callback: CallBack<T>) => {
+            const resultArray: T[] = [];
+            for (let i = 0; i < arr.length; i++) {
+                resultArray.push(callback(arr[i], i, arr));
+            }
+            return resultArray;
+        }
 
+        log(map(testArrayOfNumbers, callBackNumber));
+        // log(map(testArrayOfStrings, callBackString));
+    }
 }
 
 {
