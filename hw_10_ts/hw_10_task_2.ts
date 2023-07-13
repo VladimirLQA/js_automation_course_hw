@@ -85,7 +85,11 @@ import {faker} from '@faker-js/faker';
     const arrayOfRoles: ArrayRoles = ['user', 'admin', 'guest'];
     const getRandomRole = (array: ArrayRoles) => array[Math.floor(Math.random() * array.length)];
 
-    const getPostUserBody = <T>(params?: Partial<T>): T => {
+    type PartialType<T> = {
+        [Key in keyof T]+?: T[Key]
+    };
+
+    const getPostUserBody = (params?: PartialType<IUser>): IUser => {
         return Object.assign({
             username: faker.person.firstName(),
             password: faker.internet.password(8),
@@ -96,13 +100,42 @@ import {faker} from '@faker-js/faker';
         });
     }
 
-    console.log(getPostUserBody<IUser>());
+    console.log(getPostUserBody());
 }
 
 {
     log(`<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Task 3 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`);
+    type DeepPartial<T> = {
+        [Key in keyof T]?: T[Key] extends Object ? DeepPartial<T[Key]> : T[Key];
+    };
 
+    interface NestedObject {
+        a: {
+            b: {
+                c: number;
+            };
+            d: string;
+        };
+        b: string;
+        c: {
+            d: boolean;
+            e: {
+                f: number[];
+            };
+        };
+        d: number;
+    }
 
+    type PartialNestedObject = DeepPartial<NestedObject>;
+
+    const testObject: PartialNestedObject = { // no error even there are no "b", "c", "d" keys
+        a: {
+            b: {
+                c: 23234,
+            },
+            d: 'string',
+        },
+    };
 }
 
 {
