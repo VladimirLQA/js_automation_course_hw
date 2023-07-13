@@ -28,6 +28,7 @@
 
 // @ts-ignore
 const log = console.log;
+import {faker} from '@faker-js/faker';
 
 {
     log(`<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Task 1 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`);
@@ -49,7 +50,7 @@ const log = console.log;
 
         forEach(testArrayOfStrings, callBackString);
     }
-        log(`----------------------------------------------`);
+    log(`----------------------------------------------`);
     {
         // .map method
         type CallBack<T> = (element: T, index: number, array: T[]) => T;
@@ -71,10 +72,37 @@ const log = console.log;
 
 {
     log(`<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Task 2 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`);
+
+    interface IUser {
+        username: string;
+        password: string;
+        email: string;
+        role: 'user' | 'admin' | 'guest';
+        createdAt: Date;
+    }
+
+    type ArrayRoles = Array<IUser['role']>;
+    const arrayOfRoles: ArrayRoles = ['user', 'admin', 'guest'];
+    const getRandomRole = (array: ArrayRoles) => array[Math.floor(Math.random() * array.length)];
+
+    const getPostUserBody = <T>(params?: Partial<T>): T => {
+        return Object.assign({
+            username: faker.person.firstName(),
+            password: faker.internet.password(8),
+            email: faker.internet.email(),
+            role: getRandomRole(arrayOfRoles),
+            createdAt: faker.date.between({from: '2022-01-01T00:00:00.000Z', to: '2023-01-01T00:00:00.000Z'}),
+            ...params
+        });
+    }
+
+    console.log(getPostUserBody<IUser>());
 }
 
 {
     log(`<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Task 3 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`);
+
+
 }
 
 {
