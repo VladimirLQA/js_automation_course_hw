@@ -128,7 +128,7 @@ import {faker} from '@faker-js/faker';
 
     type PartialNestedObject = DeepPartial<NestedObject>;
 
-    const testObject: PartialNestedObject = { // no error even there are no "b", "c", "d" keys
+    const testObject: PartialNestedObject = { // no error even there are no "b", "c", "d" keys on first level
         a: {
             b: {
                 c: 23234,
