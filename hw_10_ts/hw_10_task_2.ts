@@ -140,4 +140,21 @@ import {faker} from '@faker-js/faker';
 
 {
     log(`<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Task 4 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`);
+
+    type CustomObject = Record<string, number | string | boolean>;
+    const testArray: CustomObject[] = [{ a: 11111,  b: 'Find',  c: false, d: 'string'}, { a: 11111,  b: 'Find',  c: true, d: 'string'}, { a: 11111,  b: 'Find',  c: false, d: 'string'}];
+
+    const searchByValue = <T extends CustomObject>(array: T[], searchValue: any) => {
+        return array.reduce((result: T[], obj: T) => {
+            for ( let [key, value] of Object.entries(obj)) {
+                if(value == searchValue) result.push(obj);
+            }
+            return result;
+        }, [])
+
+    }
+
+    console.log(searchByValue(testArray, false))
+
+
 }
